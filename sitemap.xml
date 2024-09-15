@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" >
+    <url>
+        <loc>https://blog.thjread.com/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2022-10-03-why-sequential-spectra.html</loc>
+        <lastmod>2022-10-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2022-04-25-kombu-iodine.html</loc>
+        <lastmod>2022-04-25</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2021-09-01-learn-homotopy-colimits.html</loc>
+        <lastmod>2021-09-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2021-01-01-ways-of-thinking-research.html</loc>
+        <lastmod>2021-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2020-10-14-algebraic-theories-talk.html</loc>
+        <lastmod>2021-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2020-08-04-quasi-categories.html</loc>
+        <lastmod>2020-08-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2020-07-01-creative-perspective.html</loc>
+        <lastmod>2020-07-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2020-04-15-limits-commute.html</loc>
+        <lastmod>2022-05-11</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2020-03-09-getting-started-category-theory.html</loc>
+        <lastmod>2020-03-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://blog.thjread.com/posts/2020-03-05-algebraic-tangent-spaces.html</loc>
+        <lastmod>2020-03-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+</urlset>
