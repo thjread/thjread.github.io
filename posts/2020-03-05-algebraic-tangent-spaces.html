@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="canonical" href="https://blog.thjread.com/posts/2020-03-05-algebraic-tangent-spaces.html" />
+        
+
+        
+        <title>The algebraic approach to tangent spaces of varieties - Thomas Read's blog</title>
+        
+
+        
+        <meta name="description" content="We define the Zariski tangent space of a variety in a geometric way, but we would like to connect this to our algebraic perspective. It turns out we can describe the tangent space just using the local ring at that point." />
+        
+
+        
+        <script>
+         var doNotTrack = false;
+         if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+             if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+                 doNotTrack = true;
+             }
+         }
+         if (!doNotTrack) {
+             (function () {
+                 var ga = document.createElement('script');
+                 ga.type = 'text/javascript';
+                 ga.async = true;
+                 ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-159901570-1";
+                 var s = document.getElementsByTagName('script')[0];
+                 s.parentNode.insertBefore(ga, s);
+             })();
+
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'UA-159901570-1', {
+                 'anonymize_ip': true,
+                 'site_speed_sample_rate': 10,
+             });
+         }
+        </script>
+        
+
+        <link rel="stylesheet" href="../css/default.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,700&display=swap" rel="stylesheet">
+
+        <script>
+         window.MathJax = {
+             tex: {
+                 macros: {
+                     diffp: ["{\\frac{\\partial #1}{\\partial #2}}", 2]
+                 }
+             }
+         };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+        <script src="https://kit.fontawesome.com/2f54fe6e45.js" async></script>
+    </head>
+    <body>
+        <header class="logo">
+            <div class="logo-container">
+                <a href="../" aria-label="Thomas Read's blog">
+                <img src="../images/capybara.png" alt style="width: 15rem;" />
+                </a>
+            </div>
+        </header>
+        <header class="blog-title">
+            <div class="blog-title-container">
+                <a href="../">Thomas Read's blog</a>
+            </div>
+        </header>
+
+        <nav>
+            <div class="sidebar-container">
+                <a class href="../">Home</a>
+                <a href="#about">About</a>
+                <a href="../archive.html">Archive</a>
+                <a href="../rss.xml">RSS Feed</a>
+            </div>
+        </nav>
+
+        <main role="main">
+            <div class="main-container">
+                <article>
+    <div class="article-title">
+        <h1>The algebraic approach to tangent spaces of varieties</h1>
+        <div class="byline">
+            Posted March  5, 2020
+            
+        </div>
+        <div class="tags">
+            
+            Tags: <a href="../tags/Algebraic%20geometry.html">Algebraic geometry</a>, <a href="../tags/Part%20II.html">Part II</a>
+            
+        </div>
+        <div class="prerequisites">
+            
+            Prerequisites: basic algebraic geometry, aimed at those studying either the Cambridge Part II course or Hulek’s Elementary Algebraic Geometry
+            
+        </div>
+    </div>
+    <div class="article-body">
+        <p>We define the (Zariski) tangent space of an irreducible affine variety in a very geometric way — it is the zero set of linearised versions of the polynomials that define the variety. We want to connect this to the algebraic structures that we’ve been building up, like coordinate rings and function fields. In fact it turns out that there is a very nice way to view the tangent space at a point in terms of the local ring at at that point.</p>
+<p>For some reason in the Cambridge Part II course we only prove this for curves — I think the general case is much more enlightening. This proof is based on Hulek’s Elementary Algebraic Geometry (Theorem 3.14), although somewhat expanded.</p>
+<!--more-->
+<h2 id="motivation">Motivation</h2>
+<p>Just like how we study varieties by looking at regular and rational functions, to take an algebraic approach to the tangent space we should look at the linear functionals on it — that is, we should look at the dual vector space, known as the cotangent space. Intuitively (imagine a smooth manifold) we think of the tangent space at a point <span class="math inline">\(p\)</span> as looking like the variety near <span class="math inline">\(p\)</span>, so a linear functional on the tangent space looks like the linear part of a function defined on the variety near <span class="math inline">\(p\)</span> (and since a linear functional is zero at the origin, we require our function to vanish at <span class="math inline">\(p\)</span>). Translating this into more rigorous terminology, a “function defined on the variety near <span class="math inline">\(p\)</span>” should mean a rational function which is regular at <span class="math inline">\(p\)</span>, i.e. an element of the local ring <span class="math inline">\(\mathcal{O}_{X, p}\)</span> at <span class="math inline">\(p\)</span>. The set of such functions which vanish at <span class="math inline">\(p\)</span> is the maximal ideal <span class="math inline">\(m_p \triangleleft \mathcal{O}_{X, p}\)</span>. We want to consider just the linear part of these functions, so we quotient out by the set of functions which vanish to second order at <span class="math inline">\(p\)</span>, i.e. <span class="math inline">\(m_p^2\)</span>. So our aim now is to show <span class="math display">\[(T_{X, p})^\ast \cong m_p / m_p^2 \text{.}\]</span></p>
+<h2 id="preparation">Preparation</h2>
+<p>In the proof, it will pay off to have thought carefully about how we can describe the tangent space and the dual space of the tangent space — once we’ve done this, the rest is really just carefully manipulating definitions.</p>
+<p>Given <span class="math inline">\(f \in k[x_1, \dotsc, x_n]\)</span>, and a point <span class="math inline">\(p \in \mathbb{A}^n_k\)</span>, we can define a linear functional corresponding to the linear part of <span class="math inline">\(f\)</span> at <span class="math inline">\(p\)</span></p>
+<p><span class="math display">\[f^{\text{lin}}_p(v) = \sum_{i=1}^n v_i \diffp{f}{x_i}(p) \in (k^n)^\ast \text{.}\]</span></p>
+<p>Now given an irreducible affine variety <span class="math inline">\(X = \mathbb{V}(I) \subset \mathbb{A}^n_k\)</span>, the tangent space at <span class="math inline">\(p \in X\)</span> is defined as</p>
+<p><span class="math display">\[T_{X, p} = \{v \in k^n \mid f^{\text{lin}}_p(v) = 0 \text{ for all $f \in I$}\}\text{.}\]</span></p>
+<p>That is, if we let <span class="math inline">\(I^\text{lin}_p = \{f^\text{lin}_p \mid f \in I\}\)</span> then <span class="math inline">\(I^\text{lin}_p\)</span> is a subspace of <span class="math inline">\((k^n)^\ast\)</span> (since <span class="math inline">\(I\)</span> is an ideal), and the tangent space is simply the annihilator of this subspace under the usual identification of a space and its double dual, i.e.</p>
+<p><span class="math display">\[T_{X, p} = (I^\text{lin}_p)^\circ = \{v \in k^n \mid \theta(v) = 0 \text{ for all $\theta \in I^\text{lin}_p$}\}\text{.}\]</span></p>
+<p>Now consider the cotangent space <span class="math inline">\((T_{X, p})^\ast\)</span>. Any linear functional <span class="math inline">\(\theta\)</span> on <span class="math inline">\(k^n\)</span> can be restricted to a functional on <span class="math inline">\(T_{X, p}\)</span>, giving us a surjective linear map</p>
+<p><span class="math display">\[\rho : (k^n)^\ast \to (T_{X, p})^\ast \text{.}\]</span></p>
+<p>The kernel of this map is the annihilator of the tangent space, <span class="math inline">\((T_{x, p})^\circ\)</span>. But we have</p>
+<p><span class="math display">\[(T_{x, p})^\circ = ((I^\text{lin}_p)^\circ)^\circ = I^\text{lin}_p\text{.}\]</span></p>
+<p>So the cotangent space is <span class="math inline">\((k^n)^\ast\)</span> quotiented by the linear parts of the polynomials in <span class="math inline">\(I\)</span>,</p>
+<p><span class="math display">\[(T_{X, p})^\ast \cong (k^n)^\ast / I^\text{lin}_p\text{.}\]</span></p>
+<p>The key point here is the fact that the annihilator of the annihilator of a subspace is the original subspace, which tells us that going from the set of linear parts of polynomials in <span class="math inline">\(I\)</span> to the tangent space doesn’t lose any information.</p>
+<h2 id="proof">Proof</h2>
+<p>Let <span class="math inline">\(X = \mathbb{V}(I)\)</span> an irreducible affine variety, and let <span class="math inline">\(p = (a_1, \dotsc a_n) \in V\)</span>. Let <span class="math inline">\(\mathcal{O}_{X, p}\)</span> be the local ring at <span class="math inline">\(p\)</span>, with maximal ideal <span class="math inline">\(m_p\)</span>. Then we want to show that there is a natural isomorphism of vector spaces</p>
+<p><span class="math display">\[(T_{X, p})^\ast \cong (m_p / m_p^2) \text{.}\]</span></p>
+<p>We will start in the polynomial ring <span class="math inline">\(k[x_1, \dotsc, x_n]\)</span>, and work our way down to <span class="math inline">\(\mathcal{O}_{X, p}\)</span>.</p>
+<p>Let <span class="math inline">\(M_p = (x_1 - a_1, \dotsc, x_n - a_n) \triangleleft k[x_1, \dotsc, x_n]\)</span> the maximal ideal of polynomials which are zero at <span class="math inline">\(p\)</span>. We have a linear map taking polynomials to their linear part at <span class="math inline">\(p\)</span>,</p>
+<p><span class="math display">\[\begin{align*}
+d : M_p &amp;\to (k^n)^\ast\\
+f &amp;\mapsto f^{\text{lin}}_p \text{.}
+\end{align*}\]</span></p>
+<p>This map is surjective (since <span class="math inline">\(d(x_i) = x_i\)</span>) and has kernel <span class="math inline">\(M_p^2\)</span>, so induces an isomorphism <span class="math inline">\(M_p / M_p^2 \cong (k^n)^\ast\)</span>. Recall the surjective map <span class="math inline">\(\rho : (k^n)^\ast \to (T_{X, p})^\ast\)</span> induced by restricting functionals from <span class="math inline">\(k^n\)</span> to <span class="math inline">\(T_{X, p}\)</span>, with kernel <span class="math inline">\(I^\text{lin}_p = \{f^{\text{lin}}_p \mid f \in I\}\)</span>. Composing <span class="math inline">\(d\)</span> and <span class="math inline">\(\rho\)</span> gives a surjective map</p>
+<p><span class="math display">\[D : M_p \xrightarrow{d} (k^n)^\ast \xrightarrow{\rho} (T_{X, p})^\ast \text{.}\]</span></p>
+<p>with kernel <span class="math inline">\(d^{-1}(I^\text{lin}_p) = I + M_p^2\)</span>. Hence</p>
+<p><span class="math display">\[(T_{X, p})^\ast \cong M_p / (M_p^2 + I)\text{.}\]</span></p>
+<p>Consider the coordinate ring <span class="math inline">\(k[X] = k[x_1, \dotsc, x_n]/I\)</span>. We have a corresponding maximal ideal <span class="math inline">\(\overline{M}_p = M_p + I\)</span>, and we see that</p>
+<p><span class="math display">\[(T_{X, p})^\ast \cong M_p / (M_p^2 + I) \cong \overline{M}_p / \overline{M}_p^2\text{.}\]</span></p>
+<p>Now we’re almost there — we just need to show <span class="math inline">\(\overline{M}_p / \overline{M}_p^2 \cong m_p / m_p^2\)</span>. The inclusion <span class="math inline">\(\overline{M}_p \subseteq m_p\)</span> (considering <span class="math inline">\(k[X]\)</span> and <span class="math inline">\(\mathcal{O}_{X, p}\)</span> as subrings of the function field <span class="math inline">\(k(X)\)</span>) induces a map</p>
+<p><span class="math display">\[\varphi : \overline{M}_p / \overline{M}_p^2 \to m_p / m_p^2\]</span></p>
+<p>and we claim that this is an isomorphism. This is annoyingly fiddly to show — Hulek implies that injectivity is obvious, but it isn’t to me; let me know if you see a better approach!</p>
+<p>For injectivity, take <span class="math inline">\(f \in M_p\)</span> and suppose <span class="math inline">\(\varphi([\bar{f}]) = 0\)</span>. Then <span class="math inline">\(\frac{f}{1} \in m_p^2\)</span>, so there exists a representation <span class="math inline">\(\frac{f}{1} \sim \frac{f_1 f_2}{g}\)</span> where <span class="math inline">\(f_1, f_2, g \in k[x_1, \dotsc, x_n]\)</span> with <span class="math inline">\(f_1, f_2 \in M_p\)</span> and <span class="math inline">\(g \notin M_p\)</span>. This means that <span class="math inline">\(f g - f_1 f_2 \in I\)</span>. But then <span class="math inline">\(\bar{f} \bar{g} = \bar{f_1} \bar{f_2} \in \overline{M}_p^2\)</span> as elements of <span class="math inline">\(k[X]\)</span>. So it suffices to show that <span class="math inline">\(\bar{g} \notin \overline{M}_p\)</span> is invertible modulo <span class="math inline">\(\overline{M}_p^2\)</span>. Consider the ideal <span class="math inline">\(\overline{M}_p^2 + (\bar{g})\)</span> – we want to show that this is all of <span class="math inline">\(k[X]\)</span>. But <span class="math inline">\(\mathbb{V}(\overline{M}_p^2) = \{p\}\)</span> and <span class="math inline">\(p \notin \mathbb{V}(\bar{g})\)</span>, so <span class="math inline">\(\mathbb{V}(\overline{M}_p^2 + (\bar{g})) = \emptyset\)</span> and so by the Nullstellensatz the ideal must be the whole ring.</p>
+<p>For surjectivity, take <span class="math inline">\(f/g\)</span> a representation for an element of <span class="math inline">\(m_p\)</span> — that is, we have <span class="math inline">\(f, g \in k[x_1, \dotsc, x_n]\)</span> with <span class="math inline">\(f \in M_p\)</span> and <span class="math inline">\(g \notin M_p\)</span>, so <span class="math inline">\(c = g(p) \ne 0\)</span>. Then</p>
+<p><span class="math display">\[\frac{f}{g} - \frac{f}{c} = \frac{f(c-g)}{gc} \in m_p^2\]</span></p>
+<p>so <span class="math inline">\(\varphi([c^{-1}\bar{f}]) = \left[\frac{f}{g}\right] \in m_p / m_p^2\)</span>. So <span class="math inline">\(\varphi\)</span> is surjective.</p>
+<p>Hence <span class="math inline">\(\overline{M}_p / \overline{M}_p^2 \cong m_p / m_p^2\)</span> and we’re done.</p>
+<h2 id="consequences">Consequences</h2>
+<p>The most important benefit of this perspective on the tangent space is that it is coordinate independent. We can now define the tangent space just in terms of the local ring at a point; the local ring is defined in terms of the rational functions on the variety; and the rational functions only depend on the variety, not on how it is embedded in affine or projective space. In particular it is now easy to check that our definition of the tangent space of a projective variety doesn’t depend on a choice of affine patch.</p>
+<p>Avoiding coordinates also gives cleaner proofs of important properties of the tangent space, which otherwise require messy formulae and formal differentiation. For example suppose <span class="math inline">\(f : X \dashrightarrow Y\)</span> is a dominant rational map, regular at <span class="math inline">\(p \in X\)</span>. Then precomposition by <span class="math inline">\(f\)</span> induces a homomorphism of function fields <span class="math inline">\(f^\ast : k(Y) \to K(X)\)</span>. It is easy to see that <span class="math inline">\(f^\ast\)</span> sends rational functions which are regular at <span class="math inline">\(f(p)\)</span> to rational functions which are regular at <span class="math inline">\(p\)</span>. So <span class="math inline">\(f^\ast\)</span> restricts to a homomorphism <span class="math inline">\(\mathcal{O}_{Y, f(p)} \to \mathcal{O}_{X, p}\)</span>. Denote the maximal ideals by <span class="math inline">\(n_{f(p)} \triangleleft \mathcal{O}_{Y, f(p)}\)</span> and <span class="math inline">\(m_p \triangleleft \mathcal{O}_{X, p}\)</span>, then <span class="math inline">\(f^\ast\)</span> further induces a linear map <span class="math inline">\(n_{f(p)} / n_{f(p)}^2 \to m_p / m_p^2\)</span>. And this gives us a linear map <span class="math inline">\(\mathrm{d}f_p : T_{X, p} \to T_{Y, f(p)}\)</span>. Moreover it is clear that <span class="math inline">\(\mathrm{d}(g \circ f)_p = \mathrm{d}g_{f(p)} \circ \mathrm{d}f_p\)</span> (the “chain rule”).</p>
+    </div>
+    <section class="comments">
+        <button id="show-comments-button" onclick="showComments()">Load comments</button>
+        <div id="graphcomment"></div>
+        <script type="text/javascript">
+         const MIN_SHOW_LOADING_MILLIS = 300;
+
+         commentsButton = document.getElementById('show-comments-button');
+
+         
+         if (!doNotTrack && gtag) {
+             function scrollBottomCallback(entries, observer) {
+                 if (entries[0].intersectionRatio <= 0) return;
+
+                 gtag('event', 'scroll_bottom', {
+                     'event_category': 'engagement'
+                 });
+
+                 observer.unobserve(commentsButton);
+             }
+
+             const observer = new IntersectionObserver(scrollBottomCallback, { threshold: '0.0' });
+             observer.observe(commentsButton);
+         }
+         
+
+         var loadTime;
+
+         function setLoadingText() {
+             commentsButton.innerHTML = "Loading...";
+         }
+
+         function failedLoadingText() {
+             const currentTime = new Date().getTime()
+             const elapsedTime = currentTime - loadTime;
+             if (elapsedTime < MIN_SHOW_LOADING_MILLIS) {
+                 setTimeout(function() {
+                     commentsButton.innerHTML = "Failed - try again?";
+                 }, MIN_SHOW_LOADING_MILLIS - elapsedTime);
+             } else {
+                 commentsButton.innerHTML = "Failed - try again?";
+             }
+         }
+
+         function hideCommentsButton() {
+             commentsButton.parentNode.removeChild(commentsButton);
+         }
+
+         function showComments() {
+             loadTime = new Date().getTime();
+             setLoadingText()
+
+             
+             if (!doNotTrack && gtag) {
+                 gtag('event', 'show_comments', {
+                     'event_category': 'engagement'
+                 });
+             }
+             
+
+             window.gc_params = {
+                 graphcomment_id: 'blog-thjread',
+
+                 // if your website has a fixed header, indicate it's height in pixels
+                 fixed_header_height: 0,
+             };
+
+             (function() {
+                 var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+                 gc.src = 'https://graphcomment.com/js/integration.js?' + Math.round(Math.random() * 1e8);
+                 gc.onload = hideCommentsButton;
+                 gc.onerror = failedLoadingText;
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+             })();
+         }
+        </script>
+    </section>
+</article>
+
+            </div>
+        </main>
+
+        <footer id="about">
+            <section class="footer-box">
+                <h2>About me</h2>
+<p>I'm currently a mathematics PhD student at the University of Warwick. At the moment I'm transitioning into working on AI safety: understanding and managing the risks of advanced artificial intelligence.</p>
+
+            </section>
+            <section class="footer-box">
+                <h2>Contact</h2>
+<ul class="fa-ul">
+    <li>
+        <a href="mailto:thjread@gmail.com" aria-label="Email"><i class="fa-li fas fa-envelope"></i></a>
+        Email me at <a href="mailto:thjread@gmail.com" class="email">thjread@gmail.com</a>
+    </li>
+    <li>
+        <a href="https://twitter.com/thjread" aria-label="Twitter"><i class="fa-li fab fa-twitter"></i></a>
+        Follow me on Twitter at <a href="https://twitter.com/thjread">@thjread</a>
+    </li>
+    <li>
+        <a href="https://github.com/thjread/" aria-label="GitHub"><i class="fa-li fab fa-github"></i></a>
+        See my programming projects on <a href="https://github.com/thjread/">GitHub</a>
+    </li>
+    <li>
+        <a href="../rss.xml" aria-label="RSS feed"><i class="fa-li fas fa-rss"></i></a>
+        Subscribe to new posts with the <a href="../rss.xml">RSS feed</a>
+    </li>
+</ul>
+
+            </section>
+            <section class="footer-box">
+                <h2>This site</h2>
+<p>Content provided under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC BY 4.0</a> license. <a href="https://github.com/thjread/thjread-blog">Source code</a> for the site provided under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+<p>This site is generated by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>, and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+
+            </section>
+        </footer>
+    </body>
+</html>

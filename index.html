@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="canonical" href="https://blog.thjread.com/" />
+        
+
+        
+        <title>Thomas Read's blog</title>
+        
+
+        
+        <meta name="description" content="My personal blog - mostly maths and programming." />
+        
+
+        
+        <script>
+         var doNotTrack = false;
+         if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+             if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+                 doNotTrack = true;
+             }
+         }
+         if (!doNotTrack) {
+             (function () {
+                 var ga = document.createElement('script');
+                 ga.type = 'text/javascript';
+                 ga.async = true;
+                 ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-159901570-1";
+                 var s = document.getElementsByTagName('script')[0];
+                 s.parentNode.insertBefore(ga, s);
+             })();
+
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'UA-159901570-1', {
+                 'anonymize_ip': true,
+                 'site_speed_sample_rate': 10,
+             });
+         }
+        </script>
+        
+
+        <link rel="stylesheet" href="./css/default.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,700&display=swap" rel="stylesheet">
+
+        <script>
+         window.MathJax = {
+             tex: {
+                 macros: {
+                     diffp: ["{\\frac{\\partial #1}{\\partial #2}}", 2]
+                 }
+             }
+         };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+        <script src="https://kit.fontawesome.com/2f54fe6e45.js" async></script>
+    </head>
+    <body>
+        <header class="logo">
+            <div class="logo-container">
+                <a href="./" aria-label="Thomas Read's blog">
+                <img src="./images/capybara.png" alt style="width: 15rem;" />
+                </a>
+            </div>
+        </header>
+        <header class="blog-title">
+            <div class="blog-title-container">
+                <a href="./">Thomas Read's blog</a>
+            </div>
+        </header>
+
+        <nav>
+            <div class="sidebar-container">
+                <a class href="./">Home</a>
+                <a href="#about">About</a>
+                <a href="./archive.html">Archive</a>
+                <a href="./rss.xml">RSS Feed</a>
+            </div>
+        </nav>
+
+        <main role="main">
+            <div class="main-container">
+                <ul>
+    
+        <li class="teaser">
+            <article>
+                <div class="article-title">
+                    <h1><a class="post-title-link" href="./posts/2022-10-03-why-sequential-spectra.html">Omega-spectra and sequential spectra</a></h1>
+                    <div class="byline">
+                        Posted October  3, 2022
+                        
+                    </div>
+                    <div class="tags">
+                        
+                        Tags: <a href="./tags/Homotopy%20theory.html">Homotopy theory</a>, <a href="./tags/Model%20categories.html">Model categories</a>
+                        
+                    </div>
+                    <div class="prerequisites">
+                        
+                        Prerequisites: homotopy theory (higher homotopy groups, loop spaces), model categories (some familiarity with basic concepts would be helpful)
+                        
+                    </div>
+                </div>
+                <div class="article-body">
+                    <h2 id="introduction">Introduction</h2>
+<p>Stable homotopy theory is a branch of algebraic topology where the central objects of study are not topological spaces, but something called spectra. Spectra are often more complicated to deal with than spaces, but they are very well suited to applying the techniques of homotopy theory.</p>
+<p>Stable homotopy theory can be tricky to motivate, in part because there are lots of different sources of motivation, each requiring different background knowledge to appreciate. No single one of these is a slam-dunk reason to study spectra, but the combination of all of them makes it clear that it’s a very natural piece of mathematics. In the first half of this post I’ll give a justification for considering (Omega-)spectra that doesn’t rely on many prerequisites, but you’ll have to believe me that there are other reasons to consider them to be the right thing to look at.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>In the second part of the post I’ll describe how we use the theory of model categories to understand spectra. In particular this explains why we need to think about sequential spectra as well as Omega-spectra.</p>
+<p>Most of these perspectives came from Urs Schreiber’s <a href="https://ncatlab.org/nlab/show/Introduction+to+Stable+Homotopy+Theory">Introduction to Stable Homotopy Theory</a> notes on the nLab (in particular the section on <a href="https://ncatlab.org/nlab/show/Introduction+to+Stable+homotopy+theory+--+1-1">Sequential Spectra</a>), and I highly recommend taking a look at these if you want to learn the technical details or read further in the subject.</p>
+<h2 id="omega-spectra">Omega-spectra</h2>
+<p>I want to show how Omega-spectra can arise naturally, by considering how you might try to define something a bit like a space but with both positive and negative homotopy groups. The <span class="math inline">\(n\)</span>th homotopy group of a pointed space<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> is the set of homotopy classes of based maps from an <span class="math inline">\(n\)</span>-dimensional sphere to the space. This definition only makes sense when <span class="math inline">\(n \ge 0\)</span>, but we can think of Omega-spectra as an attempt to define an object where negative homotopy groups do make sense. I’m being deliberately vague when I say that they are “a bit like” spaces – spaces aren’t Omega-spectra and Omega-spectra aren’t spaces, but they do behave similarly in some respects.</p>
+<p>Let <span class="math inline">\(Y\)</span> a pointed topological space. An important construction in homotopy theory is the loop space <span class="math inline">\(\Omega Y\)</span>. This is the space of paths in <span class="math inline">\(Y\)</span> that start and end at the basepoint. Points of <span class="math inline">\(\Omega Y\)</span> correspond to based loops in <span class="math inline">\(Y\)</span>, and paths in <span class="math inline">\(\Omega Y\)</span> correspond to homotopies between based loops in <span class="math inline">\(Y\)</span>. So path components of <span class="math inline">\(\Omega Y\)</span> are in bijection with the first homotopy group of <span class="math inline">\(Y\)</span>: <span class="math display">\[\pi_0(\Omega Y) \cong \pi_1(Y)\text{.}\]</span> The same idea works for higher homotopy groups, and we have <span class="math display">\[\pi_k(\Omega Y) \cong \pi_{k+1}(Y) \text{.}\]</span> That is, the homotopy groups of <span class="math inline">\(\Omega Y\)</span> are obtained from those of <span class="math inline">\(Y\)</span> by throwing away the zeroth one and shifting the rest down a dimension. Now let’s take this idea but do it the other way round. Let <span class="math inline">\(Y\)</span> be a pointed space, and suppose you have a pointed space <span class="math inline">\(Z\)</span> and a weak homotopy equivalence <span class="math inline">\(f : Y \to \Omega Z\)</span> (a weak homotopy equivalence is a map that induces isomorphism on all homotopy groups). Then <span class="math inline">\(Z\)</span> has the same homotopy groups as <span class="math inline">\(Y\)</span> but shifted one dimension up, together with a new homotopy group <span class="math inline">\(\pi_0 Z\)</span> living one dimension below <span class="math inline">\(\pi_1 Z \cong \pi_0 Y\)</span>. In some sense we can think of this data <span class="math inline">\((Y, Z, f)\)</span> as specifying a space <span class="math inline">\(Y\)</span> with the addition of a dimension <span class="math inline">\(-1\)</span> homotopy group <span class="math inline">\(\pi_0 Z\)</span>.</p>
+<p>Repeating this construction, we get the definition of an Omega-spectrum.</p>
+<div class="definition">
+<p><strong>Definition</strong> (Omega-spectrum)</p>
+<p>An Omega-spectrum <span class="math inline">\(X\)</span> consists of a sequence <span class="math inline">\((X_n)_{n \ge 0}\)</span> of pointed topological spaces, together with weak homotopy equivalences <span class="math display">\[f_n : X_n \to \Omega X_{n+1}\]</span> for all <span class="math inline">\(n\)</span>.</p>
+</div>
+<p>Note that <span class="math display">\[\pi_k (X_n) \cong \pi_k(\Omega X_{n+1}) \cong \pi_{k+1}(X_{n+1}) \text{.}\]</span> Fix an integer <span class="math inline">\(k \in \mathbb{Z}\)</span>. The group <span class="math inline">\(\pi_{n+k}(X_n)\)</span> exists for <span class="math inline">\(n\)</span> sufficiently large that <span class="math inline">\(n+k \ge 0\)</span>, and these groups are isomorphic for different <span class="math inline">\(n\)</span>. We call this the <span class="math inline">\(k\)</span>th stable homotopy group of <span class="math inline">\(X\)</span>, denoted <span class="math inline">\(\pi_k(X)\)</span>. When <span class="math inline">\(k \ge 0\)</span> these agree with the usual homotopy groups of <span class="math inline">\(X_0\)</span>, but we also have homotopy groups in negative dimensions!</p>
+<p><img src="./images/omega-spectrum-homotopy-groups.png" class="image-large center" alt="Diagram of the homotopy groups of the spaces comprising an Omega-spectrum, and the isomorphisms between them" /></p>
+<h2 id="sequential-spectra-and-the-stable-model-structure">Sequential spectra and the stable model structure</h2>
+<p>The next step is to try to do homotopy theory, replacing spaces with Omega-spectra.</p>
+
+                </div>
+                <a href="./posts/2022-10-03-why-sequential-spectra.html">Read more</a>
+            </article>
+        </li>
+    
+        <li class="teaser">
+            <article>
+                <div class="article-title">
+                    <h1><a class="post-title-link" href="./posts/2022-04-25-kombu-iodine.html">Iodine in kombu: a deep dive</a></h1>
+                    <div class="byline">
+                        Posted April 25, 2022
+                        
+                    </div>
+                    <div class="tags">
+                        
+                        Tags: <a href="./tags/Cooking.html">Cooking</a>, <a href="./tags/Chemistry.html">Chemistry</a>
+                        
+                    </div>
+                    <div class="prerequisites">
+                        
+                    </div>
+                </div>
+                <div class="article-body">
+                    <p><img src="./images/kombu_packet.jpg" class="image-medium image-pad-vertical center" alt="A pack of Wel-Pac brand dried kombu for dashi" /></p>
+<p>I’ve recently been exploring Japanese cuisine, and in doing so I found out about a type of seaweed called kombu. When I use a new ingredient I like to look up its nutritional properties, and I learnt that kombu contains extremely high levels of iodine. This post start with an introduction to kombu, and a discussion of whether too much iodine is something to worry about or not. I then describe my efforts to measure iodine at home, in order to find a way to cook with kombu without consuming so much iodine, should you wish to do so.</p>
+<h2 id="what-is-kombu">What is kombu?</h2>
+<p>Kombu is a kind of kelp seaweed, found in oceans all over the world. It grows quickly and in reasonably shallow water, so is easy to harvest in large quantities. In Japanese cooking, dried kombu is soaked in water to produce a flavourful liquid called kombu dashi. This provides the base for miso soup as well as many other broths, stews and sauces.</p>
+<figure>
+<img src="./images/kombu_soak.jpg" class="image-large image-pad-vertical center" alt="Dry and reconstituted kombu on a plate" alt /><figcaption>Left: a piece of dried kombu. Right: an equal sized piece after rehydrating.</figcaption>
+</figure>
+<p>In 1908, Japanese biochemist Kikunae Ikeda discovered that the distinctive umami taste of kombu comes from glutamic acid, and figured out how to manufacture this commercially in the form of monosodium glutamate (MSG). These days many Japanese cooks buy dashi powder rather than making it at home; most powders have added MSG, and some don’t even contain any kombu.</p>
+<p>In the west, kombu is becoming increasingly popular in vegan and vegetarian cooking. It’s often added to herbal supplements and vegan milk substitutes as a rich natural source of iodine.</p>
+
+                </div>
+                <a href="./posts/2022-04-25-kombu-iodine.html">Read more</a>
+            </article>
+        </li>
+    
+        <li class="teaser">
+            <article>
+                <div class="article-title">
+                    <h1><a class="post-title-link" href="./posts/2021-09-01-learn-homotopy-colimits.html">How to learn about homotopy limits and colimits</a></h1>
+                    <div class="byline">
+                        Posted September  1, 2021
+                        
+                    </div>
+                    <div class="tags">
+                        
+                        Tags: <a href="./tags/Homotopy%20theory.html">Homotopy theory</a>, <a href="./tags/Model%20categories.html">Model categories</a>, <a href="./tags/Category%20theory.html">Category theory</a>
+                        
+                    </div>
+                    <div class="prerequisites">
+                        
+                        Prerequisites: homotopy theory (homotopy equivalence), category theory (limits, would be helpful to understand nerves, model categories and simplicial sets)
+                        
+                    </div>
+                </div>
+                <div class="article-body">
+                    <p>Earlier this year I wanted to quickly learn the basics of homotopy limits, and found it surprisingly hard to even find a clear definition. Resources vary a lot in the level of generality, the amount of prerequisite knowledge required and the exact technical details, and it took a long time to find the right fit for me at a point when I didn’t know what I was looking for. In this post I’ll give a brief explanation of what homotopy limits are, and point to the further resources that I found most helpful.</p>
+<p><img src="./images/homotopy-colimit.png" class="image-very-large center" alt="Drawing of a mapping telescope" /></p>
+<h2 id="whats-the-point-of-homotopy-limits">What’s the point of homotopy limits?</h2>
+<p>In homotopy theory, we like to consider topological spaces “up to homotopy equivalence”. In calculations, we want to be able to replace a space with a homotopy equivalent space. Unfortunately the usual category-theoretic notions of limit and colimit don’t behave nicely with respect to homotopy equivalence. For example, the pullback of the diagram given by the inclusions of the endpoints in the unit interval</p>
+<p><span class="math display">\[\{0\} \hookrightarrow [0, 1] \hookleftarrow \{1\}\]</span></p>
+<p>is the empty topological space. The pullback of the diagram given by two inclusions of a point into a point</p>
+<p><span class="math display">\[\ast \hookrightarrow \ast \hookleftarrow \ast\]</span></p>
+<p>is a point. But the interval is homotopy equivalent to the point – in fact we have a commutative diagram</p>
+<p><img src="./images/pullback-homotopy-inv-fail.svg" class="image-small center" alt="\begin{tikzcd} {0} \ar[r] \ar[d] &amp; {[0, 1]} \ar[d] &amp; {1} \ar[l] \ar[d]\ \ast \ar[r] &amp; \ast &amp; \ast \ar[l] \end{tikzcd}" /></p>
+<p>where all the vertical maps are homotopy equivalences. Since the empty space is not homotopy equivalent (nor even weakly homotopy equivalent) to a point, we see that the limits of two homotopy equivalent diagrams are not necessarily homotopy equivalent.</p>
+
+                </div>
+                <a href="./posts/2021-09-01-learn-homotopy-colimits.html">Read more</a>
+            </article>
+        </li>
+    
+        <li class="teaser">
+            <article>
+                <div class="article-title">
+                    <h1><a class="post-title-link" href="./posts/2021-01-01-ways-of-thinking-research.html">Ways of thinking for mathematical research</a></h1>
+                    <div class="byline">
+                        Posted January  1, 2021
+                        
+                    </div>
+                    <div class="tags">
+                        
+                        Tags: <a href="./tags/Mathematics%20research.html">Mathematics research</a>
+                        
+                    </div>
+                    <div class="prerequisites">
+                        
+                    </div>
+                </div>
+                <div class="article-body">
+                    <p><img src="./images/research-rough.jpg" class="image-large center image-pad-vertical" alt="Rough working including several TODOs" /></p>
+<p>Last summer I did an eight week mathematics research project, as mentioned in my previous post. This was my first real taste of mathematical research, and so I tried to write up some of my thoughts on lessons learned while they were still fresh in my mind. I just recently got around to editing this into a publishable form.</p>
+<p>I’m sure very little of this is new to those of you who have experience in research – but I find it hard to remember what was difficult once I’m very used to something, so I hope there’s value in me writing this.</p>
+
+                </div>
+                <a href="./posts/2021-01-01-ways-of-thinking-research.html">Read more</a>
+            </article>
+        </li>
+    
+        <li class="teaser">
+            <article>
+                <div class="article-title">
+                    <h1><a class="post-title-link" href="./posts/2020-10-14-algebraic-theories-talk.html">Slides on algebraic theories</a></h1>
+                    <div class="byline">
+                        Posted October 14, 2020
+                        
+                    </div>
+                    <div class="tags">
+                        
+                        Tags: <a href="./tags/Category%20theory.html">Category theory</a>, <a href="./tags/Universal%20algebra.html">Universal algebra</a>
+                        
+                    </div>
+                    <div class="prerequisites">
+                        
+                        Prerequisites: none
+                        
+                    </div>
+                </div>
+                <div class="article-body">
+                    <p><img src="./images/comm-monoid-operad.jpg" class="image-large center" alt="Composition in the commutative monoid operad" /></p>
+<p>I spent a couple months this summer doing a very enjoyable research project supervised by Martin Hyland, looking at several topics to do with algebraic theories. It was a great opportunity to get some idea of what research can be like, and to learn from someone with much more experience.</p>
+<p>I recently gave a short talk about the project, and I’ve uploaded the <a href="./pdfs/algebraictheories.pdf">slides</a>. The talk was aimed at mathematics students who don’t know any category theory, so rather than taking a category-heavy point of view, I instead spent the first half explaining equational theories in some detail, while in the second half I tried to give a more intuitive description of the problems that I was actually working on.</p>
+
+                </div>
+                <a href="./posts/2020-10-14-algebraic-theories-talk.html">Read more</a>
+            </article>
+        </li>
+    
+</ul>
+
+
+<p>See the <a href="./archive.html">archives</a> for more.</p>
+
+            </div>
+        </main>
+
+        <footer id="about">
+            <section class="footer-box">
+                <h2>About me</h2>
+<p>I'm currently a mathematics PhD student at the University of Warwick. At the moment I'm transitioning into working on AI safety: understanding and managing the risks of advanced artificial intelligence.</p>
+
+            </section>
+            <section class="footer-box">
+                <h2>Contact</h2>
+<ul class="fa-ul">
+    <li>
+        <a href="mailto:thjread@gmail.com" aria-label="Email"><i class="fa-li fas fa-envelope"></i></a>
+        Email me at <a href="mailto:thjread@gmail.com" class="email">thjread@gmail.com</a>
+    </li>
+    <li>
+        <a href="https://twitter.com/thjread" aria-label="Twitter"><i class="fa-li fab fa-twitter"></i></a>
+        Follow me on Twitter at <a href="https://twitter.com/thjread">@thjread</a>
+    </li>
+    <li>
+        <a href="https://github.com/thjread/" aria-label="GitHub"><i class="fa-li fab fa-github"></i></a>
+        See my programming projects on <a href="https://github.com/thjread/">GitHub</a>
+    </li>
+    <li>
+        <a href="./rss.xml" aria-label="RSS feed"><i class="fa-li fas fa-rss"></i></a>
+        Subscribe to new posts with the <a href="./rss.xml">RSS feed</a>
+    </li>
+</ul>
+
+            </section>
+            <section class="footer-box">
+                <h2>This site</h2>
+<p>Content provided under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC BY 4.0</a> license. <a href="https://github.com/thjread/thjread-blog">Source code</a> for the site provided under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+<p>This site is generated by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>, and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+
+            </section>
+        </footer>
+    </body>
+</html>

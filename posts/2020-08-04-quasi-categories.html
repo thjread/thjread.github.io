@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="canonical" href="https://blog.thjread.com/posts/2020-08-04-quasi-categories.html" />
+        
+
+        
+        <title>What is a quasi-category? - Thomas Read's blog</title>
+        
+
+        
+        <meta name="description" content="Quasi-categories are one of the earliest and most important models for weak (infinity, 1)-categories. The definition of a quasi-category turns out to be less horrendously complicated than you might expect! The key is to understand simplicial sets, which are a kind of combinatorial approach to shape. Then a quasi-category is a simplicial set satisfying a condition that asks for certain " compositions of morphisms" to exist." />
+        
+
+        
+        <script>
+         var doNotTrack = false;
+         if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+             if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+                 doNotTrack = true;
+             }
+         }
+         if (!doNotTrack) {
+             (function () {
+                 var ga = document.createElement('script');
+                 ga.type = 'text/javascript';
+                 ga.async = true;
+                 ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-159901570-1";
+                 var s = document.getElementsByTagName('script')[0];
+                 s.parentNode.insertBefore(ga, s);
+             })();
+
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'UA-159901570-1', {
+                 'anonymize_ip': true,
+                 'site_speed_sample_rate': 10,
+             });
+         }
+        </script>
+        
+
+        <link rel="stylesheet" href="../css/default.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,700&display=swap" rel="stylesheet">
+
+        <script>
+         window.MathJax = {
+             tex: {
+                 macros: {
+                     diffp: ["{\\frac{\\partial #1}{\\partial #2}}", 2]
+                 }
+             }
+         };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+        <script src="https://kit.fontawesome.com/2f54fe6e45.js" async></script>
+    </head>
+    <body>
+        <header class="logo">
+            <div class="logo-container">
+                <a href="../" aria-label="Thomas Read's blog">
+                <img src="../images/capybara.png" alt style="width: 15rem;" />
+                </a>
+            </div>
+        </header>
+        <header class="blog-title">
+            <div class="blog-title-container">
+                <a href="../">Thomas Read's blog</a>
+            </div>
+        </header>
+
+        <nav>
+            <div class="sidebar-container">
+                <a class href="../">Home</a>
+                <a href="#about">About</a>
+                <a href="../archive.html">Archive</a>
+                <a href="../rss.xml">RSS Feed</a>
+            </div>
+        </nav>
+
+        <main role="main">
+            <div class="main-container">
+                <article>
+    <div class="article-title">
+        <h1>What is a quasi-category?</h1>
+        <div class="byline">
+            Posted August  4, 2020
+            
+        </div>
+        <div class="tags">
+            
+            Tags: <a href="../tags/Category%20theory.html">Category theory</a>, <a href="../tags/Infinity%20categories.html">Infinity categories</a>
+            
+        </div>
+        <div class="prerequisites">
+            
+            Prerequisites: basic category theory (categories, functors)
+            
+        </div>
+    </div>
+    <div class="article-body">
+        <p>A category describes a collection of objects with composable morphisms between them. In a 2-category you also have 2-morphisms between morphisms with matching domain and codomain. For example there is a 2-category <span class="math inline">\(\text{Cat}\)</span> with objects given by (small) categories, 1-morphisms given by functors between categories, and 2-morphisms given by natural transformations between functors. Continuing this pattern gives the idea of an <span class="math inline">\(n\)</span>-category, where you have objects, 1-morphisms, 2-morphisms, and so on up to <span class="math inline">\(n\)</span>-morphisms. The ultimate such structure is an <span class="math inline">\(\infty\)</span>-category, with a never ending sequence of morphisms between morphisms between … between morphisms.</p>
+<p>In a <em>weak</em> <span class="math inline">\(n\)</span>- or <span class="math inline">\(\infty\)</span>-category, associativity and identity laws only hold up to (coherent) isomorphism. In fact we don’t even need to require composition of morphisms to be uniquely defined! We only ask that all possible composites are uniquely isomorphic (where uniquely is interpreted in an appropriate higher categorical sense).</p>
+<p>Weak higher categories are generally hard to understand, or even define correctly, and are currently an area of active research. However an especially well-behaved special case is that of a weak <span class="math inline">\((\infty, 1)\)</span>-category, where all <span class="math inline">\(k\)</span>-morphisms for <span class="math inline">\(k &gt; 1\)</span> are equivalences. Quasi-categories are one of the earliest and most important ways to formalise the idea of a weak <span class="math inline">\((\infty, 1)\)</span>-category. The definition of a quasi-category turns out to be less horrendously complicated than you might expect! The key is to understand simplicial sets, which are a kind of combinatorial approach to shape. Then a quasi-category is a simplicial set satisfying a condition that asks for certain “compositions of morphisms” to exist. We’ll start with a quick overview of simplicial sets, emphasising geometric intuition, before explaining the precise definition of a quasi-category.</p>
+<h2 id="simplicial-sets">Simplicial sets</h2>
+<p>The idea of a simplicial set is to describe a shape by building it up out of <em>simplices</em> – points, lines, triangles, and so on. Moreover each simplex should come with an ordering on its vertices, so for example edges have a direction and triangles have an orientation.</p>
+<p><img src="../images/simplicial-set-example.jpg" class="image-large center" alt="Example of a simplicial set" /></p>
+<!--more-->
+<p>How can we describe this mathematically? For each <span class="math inline">\(n \ge 0\)</span> we can define a set <span class="math inline">\(A_n\)</span> of <span class="math inline">\(n\)</span>-simplices, so <span class="math inline">\(A_0\)</span> is the set of vertices, <span class="math inline">\(A_1\)</span> is the set of edges, <span class="math inline">\(A_2\)</span> is the set of triangles. But we also need to describe how the simplices relate to one another. If I hand you an edge from <span class="math inline">\(A_1\)</span> you should be able to find its source and target vertices in <span class="math inline">\(A_0\)</span>, so we need two functions <span class="math inline">\(A_1 \to A_0\)</span> specifying the source and target vertices of each edge. Similarly we need three functions <span class="math inline">\(A_2 \to A_1\)</span> specifying the vertices of each triangle.</p>
+<p><img src="../images/simplicial-set-diagram.jpg" class="image-large center" alt="Interconnections between sets of simplices" /></p>
+<p>Now things get a little subtle. You might think we need three functions <span class="math inline">\(A_3 \to A_2\)</span> specifying the three edges of each triangle. But it turns out things work better if we think of triangles as having 6 edges! Let me explain. We define a function <span class="math inline">\(A_0 \to A_1\)</span>, which assigns a <em>degenerate edge</em> to every vertex – the idea is that you can also think of a vertex as a zero length edge from the vertex to itself. And now a triangle has its three ordinary edges, and also a degenerate edge corresponding to each vertex. So we need six functions <span class="math inline">\(A_3\)</span> to <span class="math inline">\(A_2\)</span> specifying the six edges of each triangle.</p>
+<p><img src="../images/2-simplex-edges.jpg" class="image-large center" alt="Edges of the standard 2-simplex" /></p>
+<p>And so on for higher dimensions. So we can describe a simplicial set <span class="math inline">\(A\)</span> by a collection of sets <span class="math inline">\(A_n\)</span> of <span class="math inline">\(n\)</span>-simplices, with lots of functions between them describing how they sit inside one another. And these functions should satisfy some obvious relations – for example if you start with a triangle, find an edge of the triangle, and then find a vertex of that edge, that should be the same as directly finding the corresponding vertex of the triangle. Here category theory comes to our rescue, by giving us a compact way to describe how these functions should relate.</p>
+<p>Let <span class="math inline">\(\Delta\)</span> be the category with objects the finite non-empty ordered sets <span class="math display">\[[n] = \{0, 1, \dotsc, n\}\]</span> and morphisms given by weakly order-preserving functions (i.e. a morphism <span class="math inline">\(f : [m] \to [n]\)</span> is a function <span class="math inline">\(f : \{0, \dotsc, m\} \to \{0, \dotsc, n\}\)</span> such that <span class="math inline">\(f(i) \le f(j)\)</span> for all <span class="math inline">\(i \le j\)</span>). Note that <span class="math inline">\([n]\)</span> can be interpreted as a category with objects <span class="math inline">\(0, \dotsc, n\)</span> and a unique morphism <span class="math inline">\(i \to j\)</span> for every <span class="math inline">\(i \le j\)</span>, and from this perspective <span class="math inline">\(\Delta\)</span> is a full subcategory of <span class="math inline">\(\text{Cat}\)</span>.</p>
+<div class="definition">
+<p><strong>Definition</strong> (simplicial set)</p>
+<p>A simplicial set is a functor <span class="math display">\[A : \Delta^\text{op} \to \text{Set} \text{.}\]</span> Geometrically, we interpret <span class="math inline">\(A([n])\)</span> (usually denoted <span class="math inline">\(A_n\)</span>) as the set of <span class="math inline">\(n\)</span>-dimensional simplices making up the shape. We interpret a morphism <span class="math inline">\(f : [m] \to [n]\)</span> (i.e. an order-preserving function <span class="math inline">\(\{0, \dotsc, m\} \to \{0, \dotsc, n\}\)</span>) as describing a way of embedding an <span class="math inline">\(m\)</span>-simplex into an <span class="math inline">\(n\)</span>-simplex. Then the function <span class="math inline">\(A(f) : A_n \to A_m\)</span> takes an <span class="math inline">\(n\)</span>-simplex from the set and gives the corresponding <span class="math inline">\(m\)</span>-simplex living inside it.</p>
+</div>
+<p><img src="../images/simplicial-set-functoriality.jpg" class="image-very-large center" alt="Action of A(f) on a simplex" /></p>
+<p>We write <span class="math inline">\(\text{sSet}\)</span> for the category <span class="math inline">\(\text{Set}^{\Delta^\text{op}}\)</span> of simplicial sets. A morphism between two simplicial sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> is given by a natural transformation <span class="math inline">\(\alpha\)</span> between the functors. That is, for each <span class="math inline">\(n\)</span> we have a map <span class="math inline">\(\alpha_{[n]} : A_n \to B_n\)</span> taking <span class="math inline">\(n\)</span>-simplices of <span class="math inline">\(A\)</span> to <span class="math inline">\(n\)</span>-simplices of <span class="math inline">\(B\)</span>, in a way that respects the relationships between the simplices (for example a face of a simplex in <span class="math inline">\(A\)</span> is mapped to the correpsonding face of the image of the simplex in <span class="math inline">\(B\)</span>).</p>
+<!-- picture? -->
+<p>We write <span class="math inline">\(\Delta[n]\)</span> for the <em>standard <span class="math inline">\(n\)</span>-simplex</em>, which is given by the representable functor <span class="math inline">\(\Delta({-}, [n])\)</span>.</p>
+<h2 id="the-nerve-of-a-category">The nerve of a category</h2>
+<p>At the moment it’s probably unclear how a simplicial set could be anything like a category. We’ll start by seeing how to represent an ordinary category as a simplicial set, via the nerve construction. After that we’ll explain how to generalise this to quasi-categories.</p>
+<p>The idea is that a category already looks a bit like a simplicial set, with a vertex for each object and a <span class="math inline">\(1\)</span>-simplex for each morphism. To form the nerve, we also add in an <span class="math inline">\(n\)</span>-simplex for each string of <span class="math inline">\(n\)</span> composable morphisms.</p>
+<div class="definition">
+<p><strong>Definition</strong> (nerve of a category)</p>
+<p>Let <span class="math inline">\(\mathcal{C}\)</span> a category. We define the nerve <span class="math inline">\(N\mathcal{C}\)</span> to be the restriction of the representable functor <span class="math display">\[\text{Cat}({-}, \mathcal{C}) : \text{Cat}^\text{op} \to \text{Set}\]</span> to <span class="math inline">\(\Delta\)</span> (considering <span class="math inline">\(\Delta\)</span> to be a full subcategory of <span class="math inline">\(\text{Cat}\)</span>). So the set <span class="math inline">\(N\mathcal{C}_n\)</span> of <span class="math inline">\(n\)</span>-simplices is the set of functors <span class="math inline">\([n] \to \mathcal{C}\)</span>, which we can identify as the set of sequences of <span class="math inline">\(n\)</span> composable morphisms in <span class="math inline">\(\mathcal{C}\)</span>.</p>
+</div>
+<p><img src="../images/nerve.jpg" class="image-large center" alt="Nerve of the walking fork category" /></p>
+<p>In fact the nerve construction gives a fully faithful embedding of <span class="math inline">\(\text{Cat}\)</span> inside <span class="math inline">\(\text{sSet}\)</span> – there’s a bijection between simplicial maps <span class="math inline">\(N\mathcal{C} \to N\mathcal{D}\)</span> and functors <span class="math inline">\(\mathcal{C} \to \mathcal{D}\)</span>.</p>
+<p>We would like to characterise those simplicial sets which are (isomorphic to) the nerve of some category. The <em>spine</em> <span class="math inline">\(I[n]\)</span> of the standard <span class="math inline">\(n\)</span>-simplex is the simplicial complex with vertices <span class="math inline">\(\{0, \dotsc, n\}\)</span> and (non-degenerate) edges <span class="math inline">\(\langle 0, 1 \rangle, \dotsc, \langle n-1, n \rangle\)</span>.</p>
+<p><img src="../images/spine.jpg" class="image-medium center" alt="Spine of a 3-simplex" /></p>
+<p>The spine <span class="math inline">\(I[n]\)</span> lives inside the standard <span class="math inline">\(n\)</span>-simplex <span class="math inline">\(\Delta[n]\)</span> in a natural way. Now it turns out that a simplicial set <span class="math inline">\(A\)</span> is (isomorphic to) the nerve of some category iff every map from a spine <span class="math inline">\(I[n] \to A\)</span> extends uniquely along the natural inclusion to a map from an <span class="math inline">\(n\)</span>-simplex <span class="math inline">\(\Delta[n] \to A\)</span>.</p>
+<p><img src="../images/spine-extension.jpg" class="image-small center" alt="Extension of a spine to a simplex" /></p>
+<p>Checking this is a nice exercise. The rough idea is that a map <span class="math inline">\(I[n] \to N\mathcal{C}\)</span> corresponds to a sequence of <span class="math inline">\(n\)</span> edges in <span class="math inline">\(N\mathcal{C}\)</span>, which corresponds to a sequence of <span class="math inline">\(n\)</span> composable morphisms in <span class="math inline">\(\mathcal{C}\)</span>, which corresponds to an <span class="math inline">\(n\)</span>-simplex in <span class="math inline">\(N \mathcal{C}\)</span>.</p>
+<h2 id="quasi-categories">Quasi-categories</h2>
+<p>The definition of a quasi-category is a generalisation of this idea. To get a simplicial set describing a category, we ask for every spine to extend uniquely to a simplex, since a sequence of (<span class="math inline">\(1\)</span>-)morphisms in a category has a unique composite. In a weak <span class="math inline">\((\infty, 1)\)</span>-category we don’t have uniquely defined composites, and we also want to handle composing arrangements of higher dimensional morphisms.</p>
+<p>The <span class="math inline">\(k\)</span>th <em>horn</em> of the standard <span class="math inline">\(n\)</span>-simplex (<span class="math inline">\(0 \le k \le n\)</span>), denoted <span class="math inline">\(\Lambda^k[n]\)</span>, is the largest simplicial set contained in <span class="math inline">\(\Delta[n]\)</span> which does not include the face opposite the vertex <span class="math inline">\(k\)</span>. Geometrically, take an <span class="math inline">\(n\)</span>-simplex and remove the interior and a face. A horn of the <span class="math inline">\(3\)</span>-simplex really looks like a horn, while a horn of the <span class="math inline">\(2\)</span>-simplex looks like two edges joined at a vertex.</p>
+<p><img src="../images/horns.jpg" class="image-very-large center" alt="Horns of the 2-simplex" /></p>
+<p>We call <span class="math inline">\(\Lambda^k[n]\)</span> an <em>inner horn</em> if <span class="math inline">\(0 &lt; k &lt; n\)</span>. For example the only inner horn of the 2-simplex is <span class="math inline">\(\Lambda^1[n]\)</span>, which looks like two arrows joined head to tail. Equipped with the concept of an inner horn, we can now finally state the definition of a quasi-category.</p>
+<div class="definition">
+<p><strong>Definition</strong> (quasi-category)</p>
+<p>A quasi-category is a simplicial set <span class="math inline">\(A\)</span> in which every inner horn can be extended (not necessarily uniquely) to a simplex. That is, for every map <span class="math inline">\(\Lambda^k[n] \to A\)</span> (<span class="math inline">\(0 &lt; k &lt; n\)</span>), there exists an extension <span class="math inline">\(\Delta[n] \to A\)</span> along the inclusion <span class="math inline">\(\Lambda^k[n] \hookrightarrow \Delta[n]\)</span>.</p>
+<!-- diagram -->
+</div>
+<p><img src="../images/horn-fill.jpg" class="image-small center" alt="Filling a horn" /></p>
+<p>We’ve already met the easiest example of a quasi-category: the nerve of a category is a quasi-category. In fact it turns out that a quasi-category is isomorphic to the nerve of a category iff every inner horn has a <em>unique</em> extension to a simplex (similarly to our previous characterisation in terms of spines).</p>
+<h2 id="references-and-further-reading">References and further reading</h2>
+<p>For a more detailed introduction to simplicial sets, focusing on geometric intuition, see Greg Friedman’s <a href="https://arxiv.org/pdf/0809.4221.pdf">An elementary illustrated introduction to simplicial sets</a>. For a more category theory focused guide, see Emily Riehl’s <a href="http://www.math.jhu.edu/~eriehl/ssets.pdf">A Leisurely Introduction to Simplicial Sets</a>, which also ends with the definition of a quasi-category.</p>
+<p>Jacob Lurie wrote a nice two page article motivating the definition of a quasi-category (which he calls an <span class="math inline">\(\infty\)</span>-category) called <a href="https://www.ams.org/notices/200808/tx080800949p.pdf">What is… an <span class="math inline">\(\infty\)</span>-Category</a>. I first learnt the definition in Emily Riehl and Dominic Verity’s <a href="http://www.math.jhu.edu/~eriehl/elements.pdf">Elements of <span class="math inline">\(\infty\)</span>-Category Theory</a>, which is also a great place to start learning how to actually do category theory in <span class="math inline">\(\infty\)</span>-categories.</p>
+    </div>
+    <section class="comments">
+        <button id="show-comments-button" onclick="showComments()">Load comments</button>
+        <div id="graphcomment"></div>
+        <script type="text/javascript">
+         const MIN_SHOW_LOADING_MILLIS = 300;
+
+         commentsButton = document.getElementById('show-comments-button');
+
+         
+         if (!doNotTrack && gtag) {
+             function scrollBottomCallback(entries, observer) {
+                 if (entries[0].intersectionRatio <= 0) return;
+
+                 gtag('event', 'scroll_bottom', {
+                     'event_category': 'engagement'
+                 });
+
+                 observer.unobserve(commentsButton);
+             }
+
+             const observer = new IntersectionObserver(scrollBottomCallback, { threshold: '0.0' });
+             observer.observe(commentsButton);
+         }
+         
+
+         var loadTime;
+
+         function setLoadingText() {
+             commentsButton.innerHTML = "Loading...";
+         }
+
+         function failedLoadingText() {
+             const currentTime = new Date().getTime()
+             const elapsedTime = currentTime - loadTime;
+             if (elapsedTime < MIN_SHOW_LOADING_MILLIS) {
+                 setTimeout(function() {
+                     commentsButton.innerHTML = "Failed - try again?";
+                 }, MIN_SHOW_LOADING_MILLIS - elapsedTime);
+             } else {
+                 commentsButton.innerHTML = "Failed - try again?";
+             }
+         }
+
+         function hideCommentsButton() {
+             commentsButton.parentNode.removeChild(commentsButton);
+         }
+
+         function showComments() {
+             loadTime = new Date().getTime();
+             setLoadingText()
+
+             
+             if (!doNotTrack && gtag) {
+                 gtag('event', 'show_comments', {
+                     'event_category': 'engagement'
+                 });
+             }
+             
+
+             window.gc_params = {
+                 graphcomment_id: 'blog-thjread',
+
+                 // if your website has a fixed header, indicate it's height in pixels
+                 fixed_header_height: 0,
+             };
+
+             (function() {
+                 var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+                 gc.src = 'https://graphcomment.com/js/integration.js?' + Math.round(Math.random() * 1e8);
+                 gc.onload = hideCommentsButton;
+                 gc.onerror = failedLoadingText;
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+             })();
+         }
+        </script>
+    </section>
+</article>
+
+            </div>
+        </main>
+
+        <footer id="about">
+            <section class="footer-box">
+                <h2>About me</h2>
+<p>I'm currently a mathematics PhD student at the University of Warwick. At the moment I'm transitioning into working on AI safety: understanding and managing the risks of advanced artificial intelligence.</p>
+
+            </section>
+            <section class="footer-box">
+                <h2>Contact</h2>
+<ul class="fa-ul">
+    <li>
+        <a href="mailto:thjread@gmail.com" aria-label="Email"><i class="fa-li fas fa-envelope"></i></a>
+        Email me at <a href="mailto:thjread@gmail.com" class="email">thjread@gmail.com</a>
+    </li>
+    <li>
+        <a href="https://twitter.com/thjread" aria-label="Twitter"><i class="fa-li fab fa-twitter"></i></a>
+        Follow me on Twitter at <a href="https://twitter.com/thjread">@thjread</a>
+    </li>
+    <li>
+        <a href="https://github.com/thjread/" aria-label="GitHub"><i class="fa-li fab fa-github"></i></a>
+        See my programming projects on <a href="https://github.com/thjread/">GitHub</a>
+    </li>
+    <li>
+        <a href="../rss.xml" aria-label="RSS feed"><i class="fa-li fas fa-rss"></i></a>
+        Subscribe to new posts with the <a href="../rss.xml">RSS feed</a>
+    </li>
+</ul>
+
+            </section>
+            <section class="footer-box">
+                <h2>This site</h2>
+<p>Content provided under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC BY 4.0</a> license. <a href="https://github.com/thjread/thjread-blog">Source code</a> for the site provided under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+<p>This site is generated by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>, and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+
+            </section>
+        </footer>
+    </body>
+</html>

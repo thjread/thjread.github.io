@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="canonical" href="https://blog.thjread.com/posts/2022-10-03-why-sequential-spectra.html" />
+        
+
+        
+        <title>Omega-spectra and sequential spectra - Thomas Read's blog</title>
+        
+
+        
+        <meta name="description" content="In the first half of this post I'll give some brief motivation for considering Omega-spectra that doesn't rely on many prerequisites, as something like a space but with both positive and negative homotopy groups. In the second part of the post I'll try to describe how we use the theory of model categories to understand spectra, and why we need to think about sequential spectra as well as Omega-spectra." />
+        
+
+        
+        <script>
+         var doNotTrack = false;
+         if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+             if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+                 doNotTrack = true;
+             }
+         }
+         if (!doNotTrack) {
+             (function () {
+                 var ga = document.createElement('script');
+                 ga.type = 'text/javascript';
+                 ga.async = true;
+                 ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-159901570-1";
+                 var s = document.getElementsByTagName('script')[0];
+                 s.parentNode.insertBefore(ga, s);
+             })();
+
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'UA-159901570-1', {
+                 'anonymize_ip': true,
+                 'site_speed_sample_rate': 10,
+             });
+         }
+        </script>
+        
+
+        <link rel="stylesheet" href="../css/default.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,700&display=swap" rel="stylesheet">
+
+        <script>
+         window.MathJax = {
+             tex: {
+                 macros: {
+                     diffp: ["{\\frac{\\partial #1}{\\partial #2}}", 2]
+                 }
+             }
+         };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+        <script src="https://kit.fontawesome.com/2f54fe6e45.js" async></script>
+    </head>
+    <body>
+        <header class="logo">
+            <div class="logo-container">
+                <a href="../" aria-label="Thomas Read's blog">
+                <img src="../images/capybara.png" alt style="width: 15rem;" />
+                </a>
+            </div>
+        </header>
+        <header class="blog-title">
+            <div class="blog-title-container">
+                <a href="../">Thomas Read's blog</a>
+            </div>
+        </header>
+
+        <nav>
+            <div class="sidebar-container">
+                <a class href="../">Home</a>
+                <a href="#about">About</a>
+                <a href="../archive.html">Archive</a>
+                <a href="../rss.xml">RSS Feed</a>
+            </div>
+        </nav>
+
+        <main role="main">
+            <div class="main-container">
+                <article>
+    <div class="article-title">
+        <h1>Omega-spectra and sequential spectra</h1>
+        <div class="byline">
+            Posted October  3, 2022
+            
+        </div>
+        <div class="tags">
+            
+            Tags: <a href="../tags/Homotopy%20theory.html">Homotopy theory</a>, <a href="../tags/Model%20categories.html">Model categories</a>
+            
+        </div>
+        <div class="prerequisites">
+            
+            Prerequisites: homotopy theory (higher homotopy groups, loop spaces), model categories (some familiarity with basic concepts would be helpful)
+            
+        </div>
+    </div>
+    <div class="article-body">
+        <h2 id="introduction">Introduction</h2>
+<p>Stable homotopy theory is a branch of algebraic topology where the central objects of study are not topological spaces, but something called spectra. Spectra are often more complicated to deal with than spaces, but they are very well suited to applying the techniques of homotopy theory.</p>
+<p>Stable homotopy theory can be tricky to motivate, in part because there are lots of different sources of motivation, each requiring different background knowledge to appreciate. No single one of these is a slam-dunk reason to study spectra, but the combination of all of them makes it clear that it’s a very natural piece of mathematics. In the first half of this post I’ll give a justification for considering (Omega-)spectra that doesn’t rely on many prerequisites, but you’ll have to believe me that there are other reasons to consider them to be the right thing to look at.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>In the second part of the post I’ll describe how we use the theory of model categories to understand spectra. In particular this explains why we need to think about sequential spectra as well as Omega-spectra.</p>
+<p>Most of these perspectives came from Urs Schreiber’s <a href="https://ncatlab.org/nlab/show/Introduction+to+Stable+Homotopy+Theory">Introduction to Stable Homotopy Theory</a> notes on the nLab (in particular the section on <a href="https://ncatlab.org/nlab/show/Introduction+to+Stable+homotopy+theory+--+1-1">Sequential Spectra</a>), and I highly recommend taking a look at these if you want to learn the technical details or read further in the subject.</p>
+<h2 id="omega-spectra">Omega-spectra</h2>
+<p>I want to show how Omega-spectra can arise naturally, by considering how you might try to define something a bit like a space but with both positive and negative homotopy groups. The <span class="math inline">\(n\)</span>th homotopy group of a pointed space<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> is the set of homotopy classes of based maps from an <span class="math inline">\(n\)</span>-dimensional sphere to the space. This definition only makes sense when <span class="math inline">\(n \ge 0\)</span>, but we can think of Omega-spectra as an attempt to define an object where negative homotopy groups do make sense. I’m being deliberately vague when I say that they are “a bit like” spaces – spaces aren’t Omega-spectra and Omega-spectra aren’t spaces, but they do behave similarly in some respects.</p>
+<p>Let <span class="math inline">\(Y\)</span> a pointed topological space. An important construction in homotopy theory is the loop space <span class="math inline">\(\Omega Y\)</span>. This is the space of paths in <span class="math inline">\(Y\)</span> that start and end at the basepoint. Points of <span class="math inline">\(\Omega Y\)</span> correspond to based loops in <span class="math inline">\(Y\)</span>, and paths in <span class="math inline">\(\Omega Y\)</span> correspond to homotopies between based loops in <span class="math inline">\(Y\)</span>. So path components of <span class="math inline">\(\Omega Y\)</span> are in bijection with the first homotopy group of <span class="math inline">\(Y\)</span>: <span class="math display">\[\pi_0(\Omega Y) \cong \pi_1(Y)\text{.}\]</span> The same idea works for higher homotopy groups, and we have <span class="math display">\[\pi_k(\Omega Y) \cong \pi_{k+1}(Y) \text{.}\]</span> That is, the homotopy groups of <span class="math inline">\(\Omega Y\)</span> are obtained from those of <span class="math inline">\(Y\)</span> by throwing away the zeroth one and shifting the rest down a dimension. Now let’s take this idea but do it the other way round. Let <span class="math inline">\(Y\)</span> be a pointed space, and suppose you have a pointed space <span class="math inline">\(Z\)</span> and a weak homotopy equivalence <span class="math inline">\(f : Y \to \Omega Z\)</span> (a weak homotopy equivalence is a map that induces isomorphism on all homotopy groups). Then <span class="math inline">\(Z\)</span> has the same homotopy groups as <span class="math inline">\(Y\)</span> but shifted one dimension up, together with a new homotopy group <span class="math inline">\(\pi_0 Z\)</span> living one dimension below <span class="math inline">\(\pi_1 Z \cong \pi_0 Y\)</span>. In some sense we can think of this data <span class="math inline">\((Y, Z, f)\)</span> as specifying a space <span class="math inline">\(Y\)</span> with the addition of a dimension <span class="math inline">\(-1\)</span> homotopy group <span class="math inline">\(\pi_0 Z\)</span>.</p>
+<p>Repeating this construction, we get the definition of an Omega-spectrum.</p>
+<div class="definition">
+<p><strong>Definition</strong> (Omega-spectrum)</p>
+<p>An Omega-spectrum <span class="math inline">\(X\)</span> consists of a sequence <span class="math inline">\((X_n)_{n \ge 0}\)</span> of pointed topological spaces, together with weak homotopy equivalences <span class="math display">\[f_n : X_n \to \Omega X_{n+1}\]</span> for all <span class="math inline">\(n\)</span>.</p>
+</div>
+<p>Note that <span class="math display">\[\pi_k (X_n) \cong \pi_k(\Omega X_{n+1}) \cong \pi_{k+1}(X_{n+1}) \text{.}\]</span> Fix an integer <span class="math inline">\(k \in \mathbb{Z}\)</span>. The group <span class="math inline">\(\pi_{n+k}(X_n)\)</span> exists for <span class="math inline">\(n\)</span> sufficiently large that <span class="math inline">\(n+k \ge 0\)</span>, and these groups are isomorphic for different <span class="math inline">\(n\)</span>. We call this the <span class="math inline">\(k\)</span>th stable homotopy group of <span class="math inline">\(X\)</span>, denoted <span class="math inline">\(\pi_k(X)\)</span>. When <span class="math inline">\(k \ge 0\)</span> these agree with the usual homotopy groups of <span class="math inline">\(X_0\)</span>, but we also have homotopy groups in negative dimensions!</p>
+<p><img src="../images/omega-spectrum-homotopy-groups.png" class="image-large center" alt="Diagram of the homotopy groups of the spaces comprising an Omega-spectrum, and the isomorphisms between them" /></p>
+<h2 id="sequential-spectra-and-the-stable-model-structure">Sequential spectra and the stable model structure</h2>
+<p>The next step is to try to do homotopy theory, replacing spaces with Omega-spectra.</p>
+<!--more-->
+<p>What exactly do we mean by “do homotopy theory”? A truly satisfactory answer would probably involve <span class="math inline">\(\infty\)</span>-categories, but I don’t know enough to do justice to that point of view. Instead we’ll use model categories to gain access to the homotopy theory of spectra.</p>
+<p>The point of model categories is to take the tools we use to work with the homotopy theory of spaces, and abstract them so that they can be applied to other scenarios. A <a href="https://ncatlab.org/nlab/show/model+category#definition">model category</a> is a complete and cocomplete category with three specified classes of morphisms called weak equivalences, fibrations and cofibrations (analagous to weak homotopy equivalences of spaces, Serre fibrations and retracts of relative cell complexes). These classes must satisfy certain factorisation and lifting properties. It turns out that this is enough to define a notion of homotopy of maps, and to prove a version of the Whitehead theorem.</p>
+<p>We want to study the homotopy category: the category that you get by adding formal inverses to all the weak equivalences. Model categories help us access this more explicitly. It turns out that the homotopy category of a model category is equivalent to the category whose objects are the fibrant-cofibrant<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> objects of the model category, and whose morphisms are homotopy classes of maps between the objects. For example, the homotopy category of topological spaces is equivalent to the category of CW-complexes and homotopy classes of maps between them.</p>
+<p>Back to Omega-spectra. We have a category of Omega-spectra (where maps between Omega-spectra are collections of maps between the component spaces that commute with the structure maps). We could try to find classes of fibrations, cofibrations and weak equivalences that make this category into a model category. Unfortunately the category of Omega-spectra is not complete, so there’s no way it can be a model category.</p>
+<p>Instead we will need to work inside a larger category that is complete and cocomplete. Let’s take a step back. An Omega-spectrum consists of a collection of spaces and maps, satisfying some properties (certain maps are weak homotopy equivalences). Perhaps it would be useful to first study the structure without the properties; to borrow language from programming, we look at the underlying “datatype”. This gives the notion of a sequential spectrum.</p>
+<div class="definition">
+<p><strong>Definition</strong> (Sequential spectrum)</p>
+<p>A sequential spectrum <span class="math inline">\(X\)</span> consists of a sequence <span class="math inline">\((X_n)_{n \ge 0}\)</span> of pointed topological spaces, together with structure maps <span class="math display">\[f_n : X_n \to \Omega X_{n+1}\]</span> from each space to the loop space of the next. <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</div>
+<p>We can define a category <span class="math inline">\(\text{SeqSpec}\)</span> of sequential spectra. A map <span class="math inline">\(f: X \to Y\)</span> of sequential spectra is a collection of continuous maps <span class="math inline">\(f_n : X_n \to Y_n\)</span> that commute with the structure maps, in the sense that we have commutative diagrams <span class="math display">\[\require{amscd}
+\begin{CD}
+X_n @&gt;{f_n}&gt;&gt; Y_n\\
+@VVV @VVV \\
+\Omega X_{n+1} @&gt;{\Omega f_{n+1}}&gt;&gt; \Omega Y_{n+1} \text{.}
+\end{CD}\]</span></p>
+<p>This time we do get a complete and cocomplete category (limits and colimits can both be computed objectwise). Even better, it turns out there’s a natural model structure on <span class="math inline">\(\text{SeqSpec}\)</span>, known as the strict model structure on sequential spectra<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<p>We’ve now made significant progress. We can define a homotopy category of Omega-spectra by considering the homotopy category of the strict model structure on sequential spectra, and taking the full subcategory spanned by the Omega-spectra. This will turn out to be the right thing to study (usually called the “stable homotopy category”), but at the moment it’s hard to compute with – since the subcategory of Omega-spectra isn’t closed under limits/colimits, it’s hard to define constructions that combine Omega-spectra to build new Omega-spectra.</p>
+<p>The key is that a model category really describes the homotopy theory of the fibrant-cofibrant objects. Every object is weakly equivalent to a fibrant-cofibrant object called its fibrant-cofibrant replacement, and for homotopical purposes we can somehow consider these to be the same object. So we would like to construct a model category where all the fibrant-cofibrant objects are Omega-spectra. For this, we use a technique known as left Bousfield localisation. It turns out that if we can define a new model structure on <span class="math inline">\(\text{SeqSpec}\)</span> with the same cofibrations but more weak equivalences, then the homotopy category associated to the new model structure will be a full (in fact reflective) subcategory of the homotopy category associated to the old model structure. Indeed there is such a model structure on <span class="math inline">\(\text{SeqSpec}\)</span> where the homotopy category is precisely the subcategory spanned by the Omega-spectra<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, the stable homotopy category we mentioned earlier. We call this the stable model structure on sequential spectra. All the fibrant-cofibrant objects are Omega-spectra (in fact, the fibrant objects are precisely the Omega-spectra). So the stable model structure gives us a very natural setting to do homotopy theory with Omega-spectra.</p>
+<h2 id="further-study">Further study</h2>
+<p>In the story so far, we’ve met the stable homotopy category, and a useful model category to use to study it. However this is not the end of the story. The stable homotopy category has a monoidal product called the smash product of spectra, making it into a symmetric monoidal category. It is possible to define the smash product on the category of sequential spectra, but it doesn’t have good properties until you pass to the homotopy category. This led to the search for a new model category of spectra that has the same homotopy category, but where the symmetric monoidal structure of the homotopy category comes from a symmetric monoidal structure of the original category. There are various solutions to this problem, such as symmetric spectra and orthogonal spectra, but I’ll leave discussing these for another day! A well-behaved smash product of spectra opens up whole new areas of stable homotopy theory; in particular the so-called “brave new algebra”.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>If you have more familiarity with algebraic topology you might find it useful to motivate Omega-spectra based on Brown representability. The Brown representability theorem essentially says that any generalised cohomology theory can be represented by an Omega-spectrum. See e.g. the first chapter of Foundations of Stable Homotopy Theory (Barnes and Roitzheim) for more details.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>A pointed space is a space together with a distinguished point in the space, which we call the basepoint. A map between pointed spaces is said to be a based map if it sends the basepoint to the basepoint.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>We say an object <span class="math inline">\(X\)</span> of a model category is fibrant if the map to the terminal object <span class="math inline">\(X \to 1\)</span> is a fibration, and cofibrant if the map from the initial object <span class="math inline">\(\emptyset \to X\)</span> is a cofibration. The fibrant-cofibrant objects are those that are both fibrant and cofibrant. In the (Quillen) model structure on topological spaces, every space is fibrant, and the cofibrant spaces are the retracts of CW-complexes.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>This definition is more commonly given in terms of structure maps <span class="math inline">\(\Sigma X_n \to X_{n+1}\)</span> from the reduced suspension of each space to the next space, but by the loop-suspension adjunction such maps are in bijection with maps <span class="math inline">\(X_n \to \Omega X_{n+1}\)</span>, so both perspectives are equivalent.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>Under certain conditions, there’s a natural model structure on the category of functors from a small category to a model category, called the projective model structure. It turns out that <span class="math inline">\(\text{SeqSpec}\)</span> is equivalent to a category of topologically enriched functors into the category of pointed spaces – see <a href="https://ncatlab.org/nlab/show/Introduction+to+Stable+homotopy+theory+--+1-1#TopologicalDiagramsSequentialSpectra">this section of the nLab guide</a> for an explanation. There is a projective model structure on this category of functors, which we call the strict model structure on sequential spectra.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>The theory of Bousfield localisations gives some help in doing this. The most important ingredient is to define an “Omega-spectrification” functor that takes a sequential spectrum and approximates it by an Omega-spectrum.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+    </div>
+    <section class="comments">
+        <button id="show-comments-button" onclick="showComments()">Load comments</button>
+        <div id="graphcomment"></div>
+        <script type="text/javascript">
+         const MIN_SHOW_LOADING_MILLIS = 300;
+
+         commentsButton = document.getElementById('show-comments-button');
+
+         
+         if (!doNotTrack && gtag) {
+             function scrollBottomCallback(entries, observer) {
+                 if (entries[0].intersectionRatio <= 0) return;
+
+                 gtag('event', 'scroll_bottom', {
+                     'event_category': 'engagement'
+                 });
+
+                 observer.unobserve(commentsButton);
+             }
+
+             const observer = new IntersectionObserver(scrollBottomCallback, { threshold: '0.0' });
+             observer.observe(commentsButton);
+         }
+         
+
+         var loadTime;
+
+         function setLoadingText() {
+             commentsButton.innerHTML = "Loading...";
+         }
+
+         function failedLoadingText() {
+             const currentTime = new Date().getTime()
+             const elapsedTime = currentTime - loadTime;
+             if (elapsedTime < MIN_SHOW_LOADING_MILLIS) {
+                 setTimeout(function() {
+                     commentsButton.innerHTML = "Failed - try again?";
+                 }, MIN_SHOW_LOADING_MILLIS - elapsedTime);
+             } else {
+                 commentsButton.innerHTML = "Failed - try again?";
+             }
+         }
+
+         function hideCommentsButton() {
+             commentsButton.parentNode.removeChild(commentsButton);
+         }
+
+         function showComments() {
+             loadTime = new Date().getTime();
+             setLoadingText()
+
+             
+             if (!doNotTrack && gtag) {
+                 gtag('event', 'show_comments', {
+                     'event_category': 'engagement'
+                 });
+             }
+             
+
+             window.gc_params = {
+                 graphcomment_id: 'blog-thjread',
+
+                 // if your website has a fixed header, indicate it's height in pixels
+                 fixed_header_height: 0,
+             };
+
+             (function() {
+                 var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+                 gc.src = 'https://graphcomment.com/js/integration.js?' + Math.round(Math.random() * 1e8);
+                 gc.onload = hideCommentsButton;
+                 gc.onerror = failedLoadingText;
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+             })();
+         }
+        </script>
+    </section>
+</article>
+
+            </div>
+        </main>
+
+        <footer id="about">
+            <section class="footer-box">
+                <h2>About me</h2>
+<p>I'm currently a mathematics PhD student at the University of Warwick. At the moment I'm transitioning into working on AI safety: understanding and managing the risks of advanced artificial intelligence.</p>
+
+            </section>
+            <section class="footer-box">
+                <h2>Contact</h2>
+<ul class="fa-ul">
+    <li>
+        <a href="mailto:thjread@gmail.com" aria-label="Email"><i class="fa-li fas fa-envelope"></i></a>
+        Email me at <a href="mailto:thjread@gmail.com" class="email">thjread@gmail.com</a>
+    </li>
+    <li>
+        <a href="https://twitter.com/thjread" aria-label="Twitter"><i class="fa-li fab fa-twitter"></i></a>
+        Follow me on Twitter at <a href="https://twitter.com/thjread">@thjread</a>
+    </li>
+    <li>
+        <a href="https://github.com/thjread/" aria-label="GitHub"><i class="fa-li fab fa-github"></i></a>
+        See my programming projects on <a href="https://github.com/thjread/">GitHub</a>
+    </li>
+    <li>
+        <a href="../rss.xml" aria-label="RSS feed"><i class="fa-li fas fa-rss"></i></a>
+        Subscribe to new posts with the <a href="../rss.xml">RSS feed</a>
+    </li>
+</ul>
+
+            </section>
+            <section class="footer-box">
+                <h2>This site</h2>
+<p>Content provided under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC BY 4.0</a> license. <a href="https://github.com/thjread/thjread-blog">Source code</a> for the site provided under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+<p>This site is generated by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>, and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+
+            </section>
+        </footer>
+    </body>
+</html>

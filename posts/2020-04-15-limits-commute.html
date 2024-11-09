@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="canonical" href="https://blog.thjread.com/posts/2020-04-15-limits-commute.html" />
+        
+
+        
+        <title>Three proofs that limits commute with limits - Thomas Read's blog</title>
+        
+
+        
+        <meta name="description" content="How do you prove that limits commute with limits, and what are the precise conditions for this to hold? I compare three proofs - a direct proof by universal property, a standard Yoneda argument, and a distinct proof using uniqueness of adjoints." />
+        
+
+        
+        <script>
+         var doNotTrack = false;
+         if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+             if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+                 doNotTrack = true;
+             }
+         }
+         if (!doNotTrack) {
+             (function () {
+                 var ga = document.createElement('script');
+                 ga.type = 'text/javascript';
+                 ga.async = true;
+                 ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-159901570-1";
+                 var s = document.getElementsByTagName('script')[0];
+                 s.parentNode.insertBefore(ga, s);
+             })();
+
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'UA-159901570-1', {
+                 'anonymize_ip': true,
+                 'site_speed_sample_rate': 10,
+             });
+         }
+        </script>
+        
+
+        <link rel="stylesheet" href="../css/default.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,700&display=swap" rel="stylesheet">
+
+        <script>
+         window.MathJax = {
+             tex: {
+                 macros: {
+                     diffp: ["{\\frac{\\partial #1}{\\partial #2}}", 2]
+                 }
+             }
+         };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+        <script src="https://kit.fontawesome.com/2f54fe6e45.js" async></script>
+    </head>
+    <body>
+        <header class="logo">
+            <div class="logo-container">
+                <a href="../" aria-label="Thomas Read's blog">
+                <img src="../images/capybara.png" alt style="width: 15rem;" />
+                </a>
+            </div>
+        </header>
+        <header class="blog-title">
+            <div class="blog-title-container">
+                <a href="../">Thomas Read's blog</a>
+            </div>
+        </header>
+
+        <nav>
+            <div class="sidebar-container">
+                <a class href="../">Home</a>
+                <a href="#about">About</a>
+                <a href="../archive.html">Archive</a>
+                <a href="../rss.xml">RSS Feed</a>
+            </div>
+        </nav>
+
+        <main role="main">
+            <div class="main-container">
+                <article>
+    <div class="article-title">
+        <h1>Three proofs that limits commute with limits</h1>
+        <div class="byline">
+            Posted April 15, 2020
+            
+        </div>
+        <div class="tags">
+            
+            Tags: <a href="../tags/Category%20theory.html">Category theory</a>
+            
+        </div>
+        <div class="prerequisites">
+            
+            Prerequisites: basic category theory (limits, Yoneda, adjoints)
+            
+        </div>
+    </div>
+    <div class="article-body">
+        <p><img src="../images/lim_comm_lim.png" class="image-very-large center" alt /></p>
+<p>A very useful fact in category theory is that limits commute with limits (and dually colimits commute with colimits). That is, given a functor <span class="math inline">\(F : I \times J \to C\)</span> we have <span class="math display">\[\lim_i \lim_j F(i, j) \cong \lim_j \lim_i F(i, j)\]</span> under appropriate conditions.</p>
+<p>In this post I will explain the precise statement of this theorem, and describe three proofs. The first proof directly uses universal properties. The second is a standard argument using the Yoneda embedding to reduce to the case of <span class="math inline">\(\text{Set}\)</span>, which we will see is really the same proof in disguise. The third proof is an elegant argument using uniqueness of adjoints.</p>
+<!--more-->
+<p>The theorem is often stated under the condition that <span class="math inline">\(C\)</span> has all <span class="math inline">\(I\)</span>-shaped limits and all <span class="math inline">\(J\)</span>-shaped limits. However it is true under weaker conditions. We have</p>
+<div class="theorem">
+<p><strong>Theorem</strong> (Limits commute with limits)</p>
+<p>Let <span class="math inline">\(F : I \times J \to C\)</span> be a functor. If <span class="math inline">\(\lim_j F(i, j)\)</span> exists for all <span class="math inline">\(i \in I\)</span> then we find that <span class="math inline">\(\lim_i \lim_j F(i, j)\)</span> exists iff <span class="math inline">\(\lim_{(i, j)} F(i, j)\)</span> exists, in which case they are canonically isomorphic.</p>
+<p>In particular <span class="math display">\[\lim_i \lim_j F(i, j) \cong \lim_j \lim_i F(i, j)\]</span> if both sides exist.</p>
+</div>
+<p>I should briefly clarify what <span class="math inline">\(\lim_i \lim_j F(i, j)\)</span> actually means. A morphism <span class="math inline">\(f : i \to i'\)</span> induces a natural transformation <span class="math inline">\(F(i, {-}) \Rightarrow F(i', {-})\)</span>, which induces a morphism <span class="math inline">\(\lim_j F(f, j) : \lim_j F(i, j) \to \lim_j F(i', j)\)</span>. So the limits <span class="math inline">\(\lim_j F(i, j)\)</span> in fact assemble into a functor <span class="math inline">\(I \to C\)</span>, and <span class="math inline">\(\lim_i \lim_j F(i, j)\)</span> is the limit of this functor.</p>
+<h2 id="warmup-proof-in-textset">Warmup: proof in <span class="math inline">\(\text{Set}\)</span></h2>
+<p>Limits in <span class="math inline">\(\text{Set}\)</span> are particularly easy to handle. If <span class="math inline">\(H : I \to \text{Set}\)</span> is a diagram in <span class="math inline">\(\text{Set}\)</span> then we have <span class="math display">\[\lim_i H(i) = \Big\{\{x_i\} \in \prod_i H(i) \Big\vert H(f)(x_i) = x_{i'} \text{ for all $f : i \to i'$ in $I$}\Big\}\]</span> Note the RHS is isomorphic to the set of cones over <span class="math inline">\(H\)</span> with summit the singleton set <span class="math inline">\(1\)</span> (since <span class="math inline">\(\lim_i H(i) \cong \text{Set}(1, \lim_i H(i)) \cong \text{Cone}(1, H)\)</span> by the universal property of the limit).</p>
+<p>This allows us to quite straightforwardly prove the theorem in the special case of a <span class="math inline">\(\text{Set}\)</span>-valued functor. Since <span class="math inline">\(\text{Set}\)</span> is complete all the limits exist — we just need to prove the claimed isomorphism.</p>
+<p>Let <span class="math inline">\(F : I \times J \to \text{Set}\)</span> a functor. Then by the formula for limits in <span class="math inline">\(\text{Set}\)</span>, for each <span class="math inline">\(i \in I\)</span> we have <span class="math display">\[\lim_j F(i, j) = \Big\{\{x_j\} \in \prod_j F(i, j) \Big\vert F(i, g)(x_j) = x_{j'} \text{ for all $g : j \to j'$ in $J$}\Big\}\text{.}\]</span> Moreover given <span class="math inline">\(f : i \to i'\)</span> in <span class="math inline">\(I\)</span> we have an induced map <span class="math inline">\(\lim_j F(f, j) : \lim_j F(i, j) \to \lim_j F(i', j)\)</span> given by <span class="math inline">\(\{x_j\} \mapsto \{F(f, j)(x_j)\}\)</span>. So we find <span class="math display">\[\begin{align*}
+\lim_i \lim_j F(i, j) &amp;= \Big\{\{y_i\} \in \prod_i \lim_j F(i, j) \Big\vert (\lim_j F(f, j))(y_i) = y_{i'}\\
+&amp;\quad\quad\text{ for all $f : i \to i'$ in $I$}\Big\}\\
+&amp;\cong \Big\{\{x_{i, j}\} \in \prod_i \prod_j F(i, j) \Big\vert F(i, g)(x_{i, j}) = x_{i, j'} \text{ for all $g : j \to j'$ in $J$, }\\&amp;\quad\quad F(f, j)(x_{i, j}) = x_{i', j} \text{ for all $f : i \to i'$ in $I$}\Big\}\\
+&amp;\cong \Big\{\{x_{i, j}\}  \in \prod_{(i, j)} F(i, j) \Big\vert F(f, g)(x_{i, j}) = x_{i', j'}\\
+    &amp;\quad\quad\text{ for all $(f, g) : (i, j) \to (i', j')$ in $I \times J$}\Big\}\\
+&amp;= \lim_{(i, j)} F(i, j)\\
+\end{align*}\]</span> as desired.</p>
+<h2 id="general-proof-by-universal-properties">General proof by universal properties</h2>
+<p>Now we move to the general case. Let <span class="math inline">\(F : I \times J \to C\)</span> a functor, and suppose <span class="math inline">\(\lim_j F(i, j)\)</span> exists for every <span class="math inline">\(i \in I\)</span>. Then I claim that the universal property of <span class="math inline">\(\lim_i \lim_j F(i, j)\)</span> is the same as the universal property of <span class="math inline">\(\lim_{(i, j)} F(i, j)\)</span>, and so one exists iff the other does, in which case they are isomorphic.</p>
+<p>I should be a bit careful here. The universal property of the limit is really the universal property of a limit <em>cone</em>, and a cone over <span class="math inline">\(\lim_j F({-}, j)\)</span> is not the same thing as a cone over <span class="math inline">\(F({-}, {-})\)</span>. What I really mean is that there is an isomorphism between the category of cones over <span class="math inline">\(\lim_j F({-}, j)\)</span> and the category of cones over <span class="math inline">\(F({-}, {-})\)</span>, which in particular preserves the summits of the cones.</p>
+<p><img src="../images/lim_comm_cone.png" class="center image-large" alt /></p>
+<p>A cone over <span class="math inline">\(\lim_j F({-}, j)\)</span> with summit <span class="math inline">\(c\)</span> is a family of morphisms <span class="math inline">\(\mu_i : c \to \lim_j F(i, j)\)</span> such that for any <span class="math inline">\(f : i \to i'\)</span> in <span class="math inline">\(I\)</span>, <span class="math display">\[\lim_j F(f, j) \circ \mu_i = \mu_{i'}\text{.}\]</span> By the universal property of the limit, a morphism <span class="math inline">\(c \to \lim_j F(i, j)\)</span> corresponds to a cone over <span class="math inline">\(F(i, {-})\)</span>. Hence the morphism <span class="math inline">\(\mu_i\)</span> corresponds to a family of morphisms <span class="math inline">\(\lambda_{i, j} : c \to F(i, j)\)</span> such that for any <span class="math inline">\(g : j \to j'\)</span> in <span class="math inline">\(J\)</span>, <span class="math inline">\(F(i, g) \circ \lambda_{i, j} = \lambda_{i, j'}\)</span>. Moreover given <span class="math inline">\(f : i \to i'\)</span>, <span class="math inline">\(\lim_j F(f, j) \circ \mu_i\)</span> is a morphism <span class="math inline">\(c \to \lim_j F(i', j)\)</span> corresponding to the cone over <span class="math inline">\(F(i', {-})\)</span> with <span class="math inline">\(j\)</span>-component given by <span class="math inline">\(F(f, j) \circ \lambda_{i, j}\)</span>. Hence a cone over <span class="math inline">\(\lim_j F({-}, j)\)</span> corresponds to a family of morphisms <span class="math inline">\(\lambda_{i, j} : c \to F(i, j)\)</span> such that for any <span class="math inline">\(g : j \to j'\)</span> in <span class="math inline">\(J\)</span>, <span class="math inline">\(F(i, g) \circ \lambda_{i, j} = \lambda_{i, j'}\)</span>, and also for any <span class="math inline">\(f : i \to i'\)</span> in <span class="math inline">\(I\)</span>, <span class="math inline">\(F(f, j) \circ \lambda_{i, j} = \lambda_{i', j}\)</span>.</p>
+<p>But that is the same as a family <span class="math inline">\(\lambda_{i, j}\)</span> such that for any morphism <span class="math inline">\((f, g) : (i, j) \to (i', j')\)</span> in <span class="math inline">\(I \times J\)</span>, <span class="math inline">\(F(f, g) \circ \lambda_{i, j} = \lambda_{i', j'}\)</span>, which is precisely the definition of a cone over <span class="math inline">\(F({-}, {-})\)</span>.</p>
+<p>Moreover it is straightforward to check that a morphism <span class="math inline">\(h : c \to c'\)</span> gives a morphism between two cones over <span class="math inline">\(\lim_j F({-}, j)\)</span> with summits <span class="math inline">\(c\)</span> and <span class="math inline">\(c'\)</span> iff it gives a morphism between the corresponding cones over <span class="math inline">\(F({-}, {-})\)</span>.</p>
+<p>This establishes the isomorphism between categories of cones. Since a limit is just a terminal cone, we see that <span class="math inline">\(\lim_i \lim_j F(i, j)\)</span> exists iff <span class="math inline">\(\lim_{(i, j)} F(i, j)\)</span> exists, in which case the limits are isomorphic.</p>
+<h2 id="general-proof-by-yoneda">General proof by Yoneda</h2>
+<p>If you look back at the previous two sections, you might notice that the arguments are very similar. There is a standard way to formalise this idea, using the Yoneda lemma and the proof in <span class="math inline">\(\text{Set}\)</span> to prove the general case.</p>
+<p>The key fact that we need is that the Yoneda embedding <span class="math inline">\(y : C \to \text{Set}^{C^\text{op}}\)</span> preserves limits (by the universal property of limits) and reflects limits (since it is full and faithful). So if <span class="math inline">\(G : I \to C\)</span> is a diagram in <span class="math inline">\(C\)</span> then <span class="math inline">\(\lim_i G(i)\)</span> exists iff <span class="math inline">\(\lim_i C({-}, G(i)) \cong C({-}, c)\)</span> for some <span class="math inline">\(c \in C\)</span>, in which case <span class="math inline">\(c \cong \lim_i G(i)\)</span>.</p>
+<p>So as before let <span class="math inline">\(F : I \times J \to C\)</span> be a functor, and suppose <span class="math inline">\(\lim_j F(i, j)\)</span> exists for every <span class="math inline">\(i \in I\)</span>. Applying the Yoneda embedding, we know that <span class="math display">\[C({-}, \lim_j F(i, j)) \cong \lim_j C({-}, F(i, j)) \text{.}\]</span> Now <span class="math inline">\(\lim_i \lim_j F(i, j)\)</span> exists and is isomorphic to <span class="math inline">\(c \in C\)</span> iff there is a natural isomorphism <span class="math display">\[\begin{align*}C({-}, c) &amp;\cong \lim_i C({-}, \lim_j F(i, j))\\
+    &amp;\cong  \lim_i \lim_j C({-}, F(i, j)) \text{.}
+\end{align*}\]</span> But we know from the proof in <span class="math inline">\(\text{Set}\)</span> that <span class="math display">\[\lim_i \lim_j C(c', F(i, j)) \cong \lim_{(i, j)} C(c', F(i, j))\]</span> for any <span class="math inline">\(c' \in C\)</span>. Moreover it is straightforward to check that this isomorphism is natural in <span class="math inline">\(c'\)</span>. So we find that <span class="math display">\[\lim_i \lim_j C({-}, F(i, j)) \cong \lim_{(i, j)} C({-}, F(i, j)) \text{.}\]</span> Now also <span class="math inline">\(\lim_{(i, j)} F(i, j)\)</span> exists and is isomorphic to <span class="math inline">\(c \in C\)</span> iff there exists a natural isomorphism <span class="math display">\[C({-}, c) \cong \lim_{(i, j)} C({-}, F(i, j)) \text{.}\]</span> So chaining all these isomorphisms together we deduce that <span class="math inline">\(\lim_i \lim_j F(i, j)\)</span> exists iff <span class="math inline">\(\lim_{(i, j)} F(i, j)\)</span> exists, in which case they are isomorphic.</p>
+<p>If you look carefully, you can convince yourself that this is amounts to almost exactly the same proof as the proof in the last section. In particular given a functor <span class="math inline">\(H : I \to \text{Set}\)</span>, the formula for limits in <span class="math inline">\(\text{Set}\)</span> shows us that an element of <span class="math inline">\(\lim_i C(c, H(i))\)</span> corresponds to a cone over <span class="math inline">\(H({-})\)</span> with summit <span class="math inline">\(c\)</span>, so the work we did proving the theorem for <span class="math inline">\(\text{Set}\)</span> corresponds precisely to the work we did showing that a cone with summit <span class="math inline">\(c\)</span> over <span class="math inline">\(\lim_j F({-}, j)\)</span> corresponds to a cone with summit <span class="math inline">\(c\)</span> over <span class="math inline">\(F({-}, {-})\)</span>.</p>
+<h2 id="a-distinct-proof-using-uniqueness-of-adjoints">A distinct proof using uniqueness of adjoints</h2>
+<p>In the special case where <span class="math inline">\(C\)</span> is complete, there is a very elegant proof. Let <span class="math inline">\(\Delta_I c : I \to C\)</span> denote the “constant value” functor which takes every object in <span class="math inline">\(I\)</span> to <span class="math inline">\(c\)</span>, and every morphism in <span class="math inline">\(I\)</span> to <span class="math inline">\(1_c\)</span>. This construction extends to a functor <span class="math inline">\(\Delta_I : C \to C^I\)</span>. Let <span class="math inline">\(\lim_I : C^I \to C\)</span> be the functor which takes a functor <span class="math inline">\(H : I \to C\)</span> to a choice of limit <span class="math inline">\(\lim_i H(i)\)</span>. Then the universal property of the limit says that <span class="math inline">\(\Delta_I\)</span> is left adjoint to <span class="math inline">\(\lim_I\)</span>.</p>
+<p>Now we generalise this to limits in two variables. We have a functor <span class="math inline">\(\lim_J : C^{I \times J} \to C^I\)</span> which takes a functor <span class="math inline">\(F : I \times J \to C\)</span> to the functor <span class="math inline">\(\lim_j F({-}, j) : I \to C\)</span>, and a functor <span class="math inline">\(\lim_I : C^I \to C\)</span> as above. Then <span class="math inline">\(\lim_I \lim_J : C^{I \times J} \to C\)</span> takes <span class="math inline">\(F : I \times J \to C\)</span> to <span class="math inline">\(\lim_i \lim_j F(i, j)\)</span>. We also have a functor <span class="math inline">\(\lim_{I \times J} : C^{I \times J} \to C\)</span> which takes <span class="math inline">\(F\)</span> to <span class="math inline">\(\lim_{(i, j)} F(i, j)\)</span>. Our aim is to show that <span class="math inline">\(\lim_I \lim_J\)</span> is naturally isomorphic to <span class="math inline">\(\lim_{I \times J}\)</span>.</p>
+<p><img src="../images/lim_comm_uniq_adjoint.png" class="center image-medium" alt /></p>
+<p>Define <span class="math inline">\(\Delta_J : C^I \to C^{I \times J}\)</span> and <span class="math inline">\(\Delta_{I \times J} : C \to C^{I \times J}\)</span> analagously to <span class="math inline">\(\Delta_I\)</span>. Then we have adjunctions <span class="math inline">\(\Delta_I \dashv \lim_I\)</span>, <span class="math inline">\(\Delta_J \dashv \lim_J\)</span> and <span class="math inline">\(\Delta_{I \times J} \dashv \lim_{I \times J}\)</span>. We can compose the first two adjunctions to get an adjunction <span class="math inline">\(\Delta_J \Delta_I \dashv \lim_I \lim_J\)</span>. But <span class="math inline">\(\Delta_J \Delta_I\)</span> takes an object <span class="math inline">\(c \in C\)</span> to the functor <span class="math inline">\(I \times J \to C\)</span> with constant value <span class="math inline">\(c\)</span> — that is, <span class="math inline">\(\Delta_J \Delta_I = \Delta_{I \times J}\)</span>. So by uniqueness of adjoints we get a natural isomorphism <span class="math inline">\(\lim_I \lim_J \cong \lim_{I \times J}\)</span>.</p>
+<p>That’s all well and good if <span class="math inline">\(C\)</span> is complete. What if <span class="math inline">\(C\)</span> is not complete? Then the Yoneda lemma comes to the rescue again. <span class="math inline">\(\text{Set}^{C^\text{op}}\)</span> is complete, so given our usual setup (<span class="math inline">\(F : I \times J \to C\)</span> such that <span class="math inline">\(\lim_j F(i, j)\)</span> exists for every <span class="math inline">\(i \in I\)</span>) we find that <span class="math display">\[\lim_i \lim_j C({-}, F(i, j)) \cong \lim_{(i, j)} C({-}, F(i, j)) \text{.}\]</span> So as before we have that <span class="math inline">\(\lim_i \lim_j F(i, j)\)</span> exists and equals <span class="math inline">\(c \in C\)</span> iff <span class="math inline">\(\lim_i \lim_j C({-}, F(i, j)) \cong C({-}, c)\)</span> iff <span class="math inline">\(\lim_{(i, j)} C({-}, F(i, j)) \cong C({-}, c)\)</span> iff <span class="math inline">\(\lim_{(i, j)} F(i, j)\)</span> exists and equals <span class="math inline">\(c\)</span>, proving the theorem.</p>
+    </div>
+    <section class="comments">
+        <button id="show-comments-button" onclick="showComments()">Load comments</button>
+        <div id="graphcomment"></div>
+        <script type="text/javascript">
+         const MIN_SHOW_LOADING_MILLIS = 300;
+
+         commentsButton = document.getElementById('show-comments-button');
+
+         
+         if (!doNotTrack && gtag) {
+             function scrollBottomCallback(entries, observer) {
+                 if (entries[0].intersectionRatio <= 0) return;
+
+                 gtag('event', 'scroll_bottom', {
+                     'event_category': 'engagement'
+                 });
+
+                 observer.unobserve(commentsButton);
+             }
+
+             const observer = new IntersectionObserver(scrollBottomCallback, { threshold: '0.0' });
+             observer.observe(commentsButton);
+         }
+         
+
+         var loadTime;
+
+         function setLoadingText() {
+             commentsButton.innerHTML = "Loading...";
+         }
+
+         function failedLoadingText() {
+             const currentTime = new Date().getTime()
+             const elapsedTime = currentTime - loadTime;
+             if (elapsedTime < MIN_SHOW_LOADING_MILLIS) {
+                 setTimeout(function() {
+                     commentsButton.innerHTML = "Failed - try again?";
+                 }, MIN_SHOW_LOADING_MILLIS - elapsedTime);
+             } else {
+                 commentsButton.innerHTML = "Failed - try again?";
+             }
+         }
+
+         function hideCommentsButton() {
+             commentsButton.parentNode.removeChild(commentsButton);
+         }
+
+         function showComments() {
+             loadTime = new Date().getTime();
+             setLoadingText()
+
+             
+             if (!doNotTrack && gtag) {
+                 gtag('event', 'show_comments', {
+                     'event_category': 'engagement'
+                 });
+             }
+             
+
+             window.gc_params = {
+                 graphcomment_id: 'blog-thjread',
+
+                 // if your website has a fixed header, indicate it's height in pixels
+                 fixed_header_height: 0,
+             };
+
+             (function() {
+                 var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+                 gc.src = 'https://graphcomment.com/js/integration.js?' + Math.round(Math.random() * 1e8);
+                 gc.onload = hideCommentsButton;
+                 gc.onerror = failedLoadingText;
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+             })();
+         }
+        </script>
+    </section>
+</article>
+
+            </div>
+        </main>
+
+        <footer id="about">
+            <section class="footer-box">
+                <h2>About me</h2>
+<p>I'm currently a mathematics PhD student at the University of Warwick. At the moment I'm transitioning into working on AI safety: understanding and managing the risks of advanced artificial intelligence.</p>
+
+            </section>
+            <section class="footer-box">
+                <h2>Contact</h2>
+<ul class="fa-ul">
+    <li>
+        <a href="mailto:thjread@gmail.com" aria-label="Email"><i class="fa-li fas fa-envelope"></i></a>
+        Email me at <a href="mailto:thjread@gmail.com" class="email">thjread@gmail.com</a>
+    </li>
+    <li>
+        <a href="https://twitter.com/thjread" aria-label="Twitter"><i class="fa-li fab fa-twitter"></i></a>
+        Follow me on Twitter at <a href="https://twitter.com/thjread">@thjread</a>
+    </li>
+    <li>
+        <a href="https://github.com/thjread/" aria-label="GitHub"><i class="fa-li fab fa-github"></i></a>
+        See my programming projects on <a href="https://github.com/thjread/">GitHub</a>
+    </li>
+    <li>
+        <a href="../rss.xml" aria-label="RSS feed"><i class="fa-li fas fa-rss"></i></a>
+        Subscribe to new posts with the <a href="../rss.xml">RSS feed</a>
+    </li>
+</ul>
+
+            </section>
+            <section class="footer-box">
+                <h2>This site</h2>
+<p>Content provided under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC BY 4.0</a> license. <a href="https://github.com/thjread/thjread-blog">Source code</a> for the site provided under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+<p>This site is generated by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>, and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+
+            </section>
+        </footer>
+    </body>
+</html>
