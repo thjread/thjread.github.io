@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="canonical" href="https://blog.thjread.com/posts/2020-10-14-algebraic-theories-talk.html" />
+        
+
+        
+        <title>Slides on algebraic theories - Thomas Read's blog</title>
+        
+
+        
+        <meta name="description" content="This summer I did a research project supervised by Martin Hyland, on topics to do with algebraic theories. I recently gave a talk about the project, and I've uploaded the slides here." />
+        
+
+        
+        <script>
+         var doNotTrack = false;
+         if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+             if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+                 doNotTrack = true;
+             }
+         }
+         if (!doNotTrack) {
+             (function () {
+                 var ga = document.createElement('script');
+                 ga.type = 'text/javascript';
+                 ga.async = true;
+                 ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-159901570-1";
+                 var s = document.getElementsByTagName('script')[0];
+                 s.parentNode.insertBefore(ga, s);
+             })();
+
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'UA-159901570-1', {
+                 'anonymize_ip': true,
+                 'site_speed_sample_rate': 10,
+             });
+         }
+        </script>
+        
+
+        <link rel="stylesheet" href="../css/default.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,700&display=swap" rel="stylesheet">
+
+        <script>
+         window.MathJax = {
+             tex: {
+                 macros: {
+                     diffp: ["{\\frac{\\partial #1}{\\partial #2}}", 2]
+                 }
+             }
+         };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+        <script src="https://kit.fontawesome.com/2f54fe6e45.js" async></script>
+    </head>
+    <body>
+        <header class="logo">
+            <div class="logo-container">
+                <a href="../" aria-label="Thomas Read's blog">
+                <img src="../images/capybara.png" alt style="width: 15rem;" />
+                </a>
+            </div>
+        </header>
+        <header class="blog-title">
+            <div class="blog-title-container">
+                <a href="../">Thomas Read's blog</a>
+            </div>
+        </header>
+
+        <nav>
+            <div class="sidebar-container">
+                <a class href="../">Home</a>
+                <a href="#about">About</a>
+                <a href="../archive.html">Archive</a>
+                <a href="../rss.xml">RSS Feed</a>
+            </div>
+        </nav>
+
+        <main role="main">
+            <div class="main-container">
+                <article>
+    <div class="article-title">
+        <h1>Slides on algebraic theories</h1>
+        <div class="byline">
+            Posted October 14, 2020
+            
+        </div>
+        <div class="tags">
+            
+            Tags: <a href="../tags/Category%20theory.html">Category theory</a>, <a href="../tags/Universal%20algebra.html">Universal algebra</a>
+            
+        </div>
+        <div class="prerequisites">
+            
+            Prerequisites: none
+            
+        </div>
+    </div>
+    <div class="article-body">
+        <p><img src="../images/comm-monoid-operad.jpg" class="image-large center" alt="Composition in the commutative monoid operad" /></p>
+<p>I spent a couple months this summer doing a very enjoyable research project supervised by Martin Hyland, looking at several topics to do with algebraic theories. It was a great opportunity to get some idea of what research can be like, and to learn from someone with much more experience.</p>
+<p>I recently gave a short talk about the project, and I’ve uploaded the <a href="../pdfs/algebraictheories.pdf">slides</a>. The talk was aimed at mathematics students who don’t know any category theory, so rather than taking a category-heavy point of view, I instead spent the first half explaining equational theories in some detail, while in the second half I tried to give a more intuitive description of the problems that I was actually working on.</p>
+<!--more-->
+    </div>
+    <section class="comments">
+        <button id="show-comments-button" onclick="showComments()">Load comments</button>
+        <div id="graphcomment"></div>
+        <script type="text/javascript">
+         const MIN_SHOW_LOADING_MILLIS = 300;
+
+         commentsButton = document.getElementById('show-comments-button');
+
+         
+         if (!doNotTrack && gtag) {
+             function scrollBottomCallback(entries, observer) {
+                 if (entries[0].intersectionRatio <= 0) return;
+
+                 gtag('event', 'scroll_bottom', {
+                     'event_category': 'engagement'
+                 });
+
+                 observer.unobserve(commentsButton);
+             }
+
+             const observer = new IntersectionObserver(scrollBottomCallback, { threshold: '0.0' });
+             observer.observe(commentsButton);
+         }
+         
+
+         var loadTime;
+
+         function setLoadingText() {
+             commentsButton.innerHTML = "Loading...";
+         }
+
+         function failedLoadingText() {
+             const currentTime = new Date().getTime()
+             const elapsedTime = currentTime - loadTime;
+             if (elapsedTime < MIN_SHOW_LOADING_MILLIS) {
+                 setTimeout(function() {
+                     commentsButton.innerHTML = "Failed - try again?";
+                 }, MIN_SHOW_LOADING_MILLIS - elapsedTime);
+             } else {
+                 commentsButton.innerHTML = "Failed - try again?";
+             }
+         }
+
+         function hideCommentsButton() {
+             commentsButton.parentNode.removeChild(commentsButton);
+         }
+
+         function showComments() {
+             loadTime = new Date().getTime();
+             setLoadingText()
+
+             
+             if (!doNotTrack && gtag) {
+                 gtag('event', 'show_comments', {
+                     'event_category': 'engagement'
+                 });
+             }
+             
+
+             window.gc_params = {
+                 graphcomment_id: 'blog-thjread',
+
+                 // if your website has a fixed header, indicate it's height in pixels
+                 fixed_header_height: 0,
+             };
+
+             (function() {
+                 var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+                 gc.src = 'https://graphcomment.com/js/integration.js?' + Math.round(Math.random() * 1e8);
+                 gc.onload = hideCommentsButton;
+                 gc.onerror = failedLoadingText;
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+             })();
+         }
+        </script>
+    </section>
+</article>
+
+            </div>
+        </main>
+
+        <footer id="about">
+            <section class="footer-box">
+                <h2>About me</h2>
+<p>I'm currently a mathematics PhD student at the University of Warwick. At the moment I'm transitioning into working on AI safety: understanding and managing the risks of advanced artificial intelligence.</p>
+
+            </section>
+            <section class="footer-box">
+                <h2>Contact</h2>
+<ul class="fa-ul">
+    <li>
+        <a href="mailto:thjread@gmail.com" aria-label="Email"><i class="fa-li fas fa-envelope"></i></a>
+        Email me at <a href="mailto:thjread@gmail.com" class="email">thjread@gmail.com</a>
+    </li>
+    <li>
+        <a href="https://twitter.com/thjread" aria-label="Twitter"><i class="fa-li fab fa-twitter"></i></a>
+        Follow me on Twitter at <a href="https://twitter.com/thjread">@thjread</a>
+    </li>
+    <li>
+        <a href="https://github.com/thjread/" aria-label="GitHub"><i class="fa-li fab fa-github"></i></a>
+        See my programming projects on <a href="https://github.com/thjread/">GitHub</a>
+    </li>
+    <li>
+        <a href="../rss.xml" aria-label="RSS feed"><i class="fa-li fas fa-rss"></i></a>
+        Subscribe to new posts with the <a href="../rss.xml">RSS feed</a>
+    </li>
+</ul>
+
+            </section>
+            <section class="footer-box">
+                <h2>This site</h2>
+<p>Content provided under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC BY 4.0</a> license. <a href="https://github.com/thjread/thjread-blog">Source code</a> for the site provided under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+<p>This site is generated by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>, and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+
+            </section>
+        </footer>
+    </body>
+</html>

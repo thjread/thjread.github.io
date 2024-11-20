@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="canonical" href="https://blog.thjread.com/posts/2020-03-09-getting-started-category-theory.html" />
+        
+
+        
+        <title>Getting started with category theory - Thomas Read's blog</title>
+        
+
+        
+        <meta name="description" content="How should you learn category theory? This is a reading list of resources, based on my experience learning category theory over the past six months." />
+        
+
+        
+        <script>
+         var doNotTrack = false;
+         if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+             if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+                 doNotTrack = true;
+             }
+         }
+         if (!doNotTrack) {
+             (function () {
+                 var ga = document.createElement('script');
+                 ga.type = 'text/javascript';
+                 ga.async = true;
+                 ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-159901570-1";
+                 var s = document.getElementsByTagName('script')[0];
+                 s.parentNode.insertBefore(ga, s);
+             })();
+
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'UA-159901570-1', {
+                 'anonymize_ip': true,
+                 'site_speed_sample_rate': 10,
+             });
+         }
+        </script>
+        
+
+        <link rel="stylesheet" href="../css/default.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,700&display=swap" rel="stylesheet">
+
+        <script>
+         window.MathJax = {
+             tex: {
+                 macros: {
+                     diffp: ["{\\frac{\\partial #1}{\\partial #2}}", 2]
+                 }
+             }
+         };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+        <script src="https://kit.fontawesome.com/2f54fe6e45.js" async></script>
+    </head>
+    <body>
+        <header class="logo">
+            <div class="logo-container">
+                <a href="../" aria-label="Thomas Read's blog">
+                <img src="../images/capybara.png" alt style="width: 15rem;" />
+                </a>
+            </div>
+        </header>
+        <header class="blog-title">
+            <div class="blog-title-container">
+                <a href="../">Thomas Read's blog</a>
+            </div>
+        </header>
+
+        <nav>
+            <div class="sidebar-container">
+                <a class href="../">Home</a>
+                <a href="#about">About</a>
+                <a href="../archive.html">Archive</a>
+                <a href="../rss.xml">RSS Feed</a>
+            </div>
+        </nav>
+
+        <main role="main">
+            <div class="main-container">
+                <article>
+    <div class="article-title">
+        <h1>Getting started with category theory</h1>
+        <div class="byline">
+            Posted March  9, 2020
+            
+        </div>
+        <div class="tags">
+            
+            Tags: <a href="../tags/Category%20theory.html">Category theory</a>
+            
+        </div>
+        <div class="prerequisites">
+            
+            Prerequisites: none
+            
+        </div>
+    </div>
+    <div class="article-body">
+        <p>So you want to learn category theory - where should you start? I’ve spent the past six months trying to get a background in the essentials, and so it’s a good time to write up a reading list to point others along the same path. This is more of a record of my journey than an exhaustive guide, although I’ll try to mention all the popular resources I know of.</p>
+<h2 id="introductory-resources">Introductory resources</h2>
+<h3 id="physics-topology-logic-and-computation-a-rosetta-stone-john-baez-and-michael-stay">Physics, Topology, Logic and Computation: A Rosetta Stone — John Baez and Michael Stay</h3>
+<p>If you’re like me, you’ll want to get excited about the subject before wading through a couple hundred pages of textbook. This paper is perfect for that — it describes how category theory draws beautiful analogies between different areas of physics, maths and computer science, all assuming no prerequisites.</p>
+<p>The <a href="http://math.ucr.edu/home/baez/rosetta/rose3.pdf">paper is available from John Baez’s website</a>.</p>
+<h3 id="category-theory-for-programmers-bartosz-milewski">Category Theory for Programmers — Bartosz Milewski</h3>
+<p>The first part of this is one of the best gentle introductions to category theory that I know of. He tries to avoid too much mathematical notation and technical detail, and instead gives intuition with cute drawings and keeps things grounded with snippets of Haskell code. If you have a formal training in mathematics you might prefer the next item on the list; on the other hand if you want to learn category theory in order to understand Haskell then this might be the only thing you need to read.</p>
+<p>The <a href="https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/">posts are online here</a> — that page also links to a pdf version, a hardcover book and a series of YouTube videos.</p>
+<h3 id="category-theory-in-context-emily-riehl">Category Theory in Context — Emily Riehl</h3>
+<p>This was my choice of introductory category theory textbook. It’s accessible to a later year maths undergrad without needing to know an excessive amount of abstract algebra or other prerequisites, and the writing is clear and of a consistently high quality. The content is evidently very well thought through: every time I skipped something I would find that it became important later, and need to go back and learn it properly! It’s a fairly dense book but not needlessly so — all the key intuition and examples are there.</p>
+<p>You can <a href="http://www.math.jhu.edu/~eriehl/context.pdf">read the book for free online</a>, and the paperback version is inexpensive.</p>
+<!--more-->
+<h3 id="the-catsters-category-theory-videos-eugenia-cheng-and-simon-willerton">The Catsters’ Category Theory Videos — Eugenia Cheng and Simon Willerton</h3>
+<p>Short YouTube videos covering a variety of topics from basic to quite advanced. A good way to fill in gaps in your knowledge, and somewhat addictive. I especially recommend the videos on string diagrams, since they are much easier to understand when someone draws them in front of you (and aren’t covered in many of the textbooks).</p>
+<p>There’s an <a href="http://www.simonwillerton.staff.shef.ac.uk/TheCatsters/">organised collection of videos here</a>.</p>
+<h2 id="honourable-mentions">Honourable mentions</h2>
+<p>Here are a few more sources which I would recommend, although I have less personal experience with these.</p>
+<h3 id="basic-category-theory-tom-leinster">Basic Category Theory — Tom Leinster</h3>
+<p>This covers a bit less than Category Theory in Context, though still most of the important basics. I haven’t read it, but I suspect this is a good choice, especially if you want something a little lighter.</p>
+<p>The <a href="https://arxiv.org/pdf/1612.09375.pdf">book is online here</a>; there’s also a somewhat expensive hardback version.</p>
+<h3 id="category-theory-steve-awodey">Category Theory — Steve Awodey</h3>
+<p>Another similar book, especially aimed at those with less of a maths background who e.g. might not know what a group is.</p>
+<p>The <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.211.4754&amp;rep=rep1&amp;type=pdf">book is available online</a>, or there’s a not overly expensive paperback.</p>
+<h3 id="categories-for-the-working-mathematician-saunders-mac-lane">Categories for the Working Mathematician — Saunders Mac Lane</h3>
+<p>The original and most famous textbook. Harder than Category Theory in Context, although still fairly readable if you have sufficient mathematical background. Covers slightly more content.</p>
+<p>The book seems to be fairly expensive. Or if you google it you may or may not come across a pdf…</p>
+<h3 id="seven-sketches-in-compositionality-an-invitation-to-applied-category-theory-brendan-fong-and-david-spivak">Seven Sketches in Compositionality: An Invitation to Applied Category Theory — Brendan Fong and David Spivak</h3>
+<p>I’ve only read the first couple chapters but enjoyed them. Introductory, but with a very different syllabus from the other textbooks, focusing on the aspects used most in applied category theory such as enriched categories and monoidal categories. Each chapter develops a topic in the context of a concrete example.</p>
+<p>You can <a href="https://math.mit.edu/~dspivak/teaching/sp18/7Sketches.pdf">read it online</a>, or you can buy a paperback copy.</p>
+<h3 id="math3ma">Math3ma</h3>
+<p>Great blog posts on a variety of ideas from category theory. Especially good for explaining what a concept really means and how you should think about it.</p>
+<p>See <a href="https://www.math3ma.com/">https://www.math3ma.com/</a> — in particular <a href="https://www.math3ma.com/categories/category-theory">posts tagged “category theory”</a>.</p>
+<h2 id="next-steps">Next steps</h2>
+<p>Now that you know the basics, where should you go next? Of course this will depend on what you’re interested in and why you’re learning category theory — here is just a selection of things that I’ve enjoyed or that have been recommended to me.</p>
+<h3 id="coend-calculus-fosco-loregian">Coend calculus — Fosco Loregian</h3>
+<p>(Co)end calculus is a very useful calculational tool, and eventually you’ll run into enough ends and coends that you’ll need to learn how they work. In particular they make working with Kan extensions much easier — if you read Category Theory in Context then this will make Chapter 6 make much more sense. The first two chapters of this book cover all the key properties, and each chapter comes with an exhaustive set of exercises.</p>
+<p>A word of advice — don’t worry too much about understanding dinatural transformations. All the guides on (co)ends that I’ve read include a section on them, but as long as you know the definition of a (co)wedge then that’s all you will need.</p>
+<p>The <a href="https://arxiv.org/abs/1501.02503">paper is available from the arXiv</a>.</p>
+<h3 id="dimensional-categories-niles-johnson-and-donald-yau">2-Dimensional Categories — Niles Johnson and Donald Yau</h3>
+<p>I’ve only just started reading this, but it got a fair amount of publicity when it was published recently. My understanding is that the book collects together a variety of material that was previously mostly scattered across various papers without many accessible introductions. In particular they include precise statements and detailed proofs of many results which are left to the reader elsewhere.</p>
+<p>The <a href="https://arxiv.org/abs/2002.06055">book is on the arXiv</a>.</p>
+<h3 id="sheaves-in-geometry-and-logic-a-first-introduction-to-topos-theory-saunders-mac-lane-and-ieke-moerdijk">Sheaves in Geometry and Logic: A First Introduction to Topos Theory — Saunders Mac Lane and Ieke Moerdijk</h3>
+<p>Another book that I’ve only recently started, but one which several people have recommended to me.</p>
+<p>Note that the chapters on sheaves in the context of geometry are largely independent from those on elementary topoi and logic, so don’t feel like you need to read the whole thing in order.</p>
+<p>Quite expensive to buy — again there seem to be a few pdfs floating around on the web.</p>
+<h3 id="the-nlab">The <span class="math inline">\(n\)</span>Lab</h3>
+<p>No list of category theory resources would be complete without mentioning the <span class="math inline">\(n\)</span>Lab — a vast wiki with content varying from pure category theory, to categorical perspectives on other areas of maths, to random unrelated bits of maths. Invaluable, and usually the first stop for tracking down an unknown concept or definition.</p>
+<p>See <a href="https://ncatlab.org">https://ncatlab.org</a>.</p>
+<p> </p>
+<p>Let me know in the comments if there’s anything I should add!</p>
+    </div>
+    <section class="comments">
+        <button id="show-comments-button" onclick="showComments()">Load comments</button>
+        <div id="graphcomment"></div>
+        <script type="text/javascript">
+         const MIN_SHOW_LOADING_MILLIS = 300;
+
+         commentsButton = document.getElementById('show-comments-button');
+
+         
+         if (!doNotTrack && gtag) {
+             function scrollBottomCallback(entries, observer) {
+                 if (entries[0].intersectionRatio <= 0) return;
+
+                 gtag('event', 'scroll_bottom', {
+                     'event_category': 'engagement'
+                 });
+
+                 observer.unobserve(commentsButton);
+             }
+
+             const observer = new IntersectionObserver(scrollBottomCallback, { threshold: '0.0' });
+             observer.observe(commentsButton);
+         }
+         
+
+         var loadTime;
+
+         function setLoadingText() {
+             commentsButton.innerHTML = "Loading...";
+         }
+
+         function failedLoadingText() {
+             const currentTime = new Date().getTime()
+             const elapsedTime = currentTime - loadTime;
+             if (elapsedTime < MIN_SHOW_LOADING_MILLIS) {
+                 setTimeout(function() {
+                     commentsButton.innerHTML = "Failed - try again?";
+                 }, MIN_SHOW_LOADING_MILLIS - elapsedTime);
+             } else {
+                 commentsButton.innerHTML = "Failed - try again?";
+             }
+         }
+
+         function hideCommentsButton() {
+             commentsButton.parentNode.removeChild(commentsButton);
+         }
+
+         function showComments() {
+             loadTime = new Date().getTime();
+             setLoadingText()
+
+             
+             if (!doNotTrack && gtag) {
+                 gtag('event', 'show_comments', {
+                     'event_category': 'engagement'
+                 });
+             }
+             
+
+             window.gc_params = {
+                 graphcomment_id: 'blog-thjread',
+
+                 // if your website has a fixed header, indicate it's height in pixels
+                 fixed_header_height: 0,
+             };
+
+             (function() {
+                 var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+                 gc.src = 'https://graphcomment.com/js/integration.js?' + Math.round(Math.random() * 1e8);
+                 gc.onload = hideCommentsButton;
+                 gc.onerror = failedLoadingText;
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+             })();
+         }
+        </script>
+    </section>
+</article>
+
+            </div>
+        </main>
+
+        <footer id="about">
+            <section class="footer-box">
+                <h2>About me</h2>
+<p>I'm currently a mathematics PhD student at the University of Warwick. At the moment I'm transitioning into working on AI safety: understanding and managing the risks of advanced artificial intelligence.</p>
+
+            </section>
+            <section class="footer-box">
+                <h2>Contact</h2>
+<ul class="fa-ul">
+    <li>
+        <a href="mailto:thjread@gmail.com" aria-label="Email"><i class="fa-li fas fa-envelope"></i></a>
+        Email me at <a href="mailto:thjread@gmail.com" class="email">thjread@gmail.com</a>
+    </li>
+    <li>
+        <a href="https://twitter.com/thjread" aria-label="Twitter"><i class="fa-li fab fa-twitter"></i></a>
+        Follow me on Twitter at <a href="https://twitter.com/thjread">@thjread</a>
+    </li>
+    <li>
+        <a href="https://github.com/thjread/" aria-label="GitHub"><i class="fa-li fab fa-github"></i></a>
+        See my programming projects on <a href="https://github.com/thjread/">GitHub</a>
+    </li>
+    <li>
+        <a href="../rss.xml" aria-label="RSS feed"><i class="fa-li fas fa-rss"></i></a>
+        Subscribe to new posts with the <a href="../rss.xml">RSS feed</a>
+    </li>
+</ul>
+
+            </section>
+            <section class="footer-box">
+                <h2>This site</h2>
+<p>Content provided under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC BY 4.0</a> license. <a href="https://github.com/thjread/thjread-blog">Source code</a> for the site provided under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+<p>This site is generated by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>, and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+
+            </section>
+        </footer>
+    </body>
+</html>

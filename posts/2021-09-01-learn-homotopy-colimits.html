@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="canonical" href="https://blog.thjread.com/posts/2021-09-01-learn-homotopy-colimits.html" />
+        
+
+        
+        <title>How to learn about homotopy limits and colimits - Thomas Read's blog</title>
+        
+
+        
+        <meta name="description" content="I wanted to quickly learn the basics of homotopy limits, and found it surprisingly hard to even find a clear definition. In this post I'll give a brief explanation of what homotopy limits are, and point to the further resources that I found most helpful." />
+        
+
+        
+        <script>
+         var doNotTrack = false;
+         if (window.doNotTrack || navigator.doNotTrack || navigator.msDoNotTrack) {
+             if (window.doNotTrack == "1" || navigator.doNotTrack == "yes" || navigator.doNotTrack == "1" || navigator.msDoNotTrack == "1") {
+                 doNotTrack = true;
+             }
+         }
+         if (!doNotTrack) {
+             (function () {
+                 var ga = document.createElement('script');
+                 ga.type = 'text/javascript';
+                 ga.async = true;
+                 ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-159901570-1";
+                 var s = document.getElementsByTagName('script')[0];
+                 s.parentNode.insertBefore(ga, s);
+             })();
+
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+
+             gtag('config', 'UA-159901570-1', {
+                 'anonymize_ip': true,
+                 'site_speed_sample_rate': 10,
+             });
+         }
+        </script>
+        
+
+        <link rel="stylesheet" href="../css/default.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500,700&display=swap" rel="stylesheet">
+
+        <script>
+         window.MathJax = {
+             tex: {
+                 macros: {
+                     diffp: ["{\\frac{\\partial #1}{\\partial #2}}", 2]
+                 }
+             }
+         };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+        <script src="https://kit.fontawesome.com/2f54fe6e45.js" async></script>
+    </head>
+    <body>
+        <header class="logo">
+            <div class="logo-container">
+                <a href="../" aria-label="Thomas Read's blog">
+                <img src="../images/capybara.png" alt style="width: 15rem;" />
+                </a>
+            </div>
+        </header>
+        <header class="blog-title">
+            <div class="blog-title-container">
+                <a href="../">Thomas Read's blog</a>
+            </div>
+        </header>
+
+        <nav>
+            <div class="sidebar-container">
+                <a class href="../">Home</a>
+                <a href="#about">About</a>
+                <a href="../archive.html">Archive</a>
+                <a href="../rss.xml">RSS Feed</a>
+            </div>
+        </nav>
+
+        <main role="main">
+            <div class="main-container">
+                <article>
+    <div class="article-title">
+        <h1>How to learn about homotopy limits and colimits</h1>
+        <div class="byline">
+            Posted September  1, 2021
+            
+        </div>
+        <div class="tags">
+            
+            Tags: <a href="../tags/Homotopy%20theory.html">Homotopy theory</a>, <a href="../tags/Model%20categories.html">Model categories</a>, <a href="../tags/Category%20theory.html">Category theory</a>
+            
+        </div>
+        <div class="prerequisites">
+            
+            Prerequisites: homotopy theory (homotopy equivalence), category theory (limits, would be helpful to understand nerves, model categories and simplicial sets)
+            
+        </div>
+    </div>
+    <div class="article-body">
+        <p>Earlier this year I wanted to quickly learn the basics of homotopy limits, and found it surprisingly hard to even find a clear definition. Resources vary a lot in the level of generality, the amount of prerequisite knowledge required and the exact technical details, and it took a long time to find the right fit for me at a point when I didn’t know what I was looking for. In this post I’ll give a brief explanation of what homotopy limits are, and point to the further resources that I found most helpful.</p>
+<p><img src="../images/homotopy-colimit.png" class="image-very-large center" alt="Drawing of a mapping telescope" /></p>
+<h2 id="whats-the-point-of-homotopy-limits">What’s the point of homotopy limits?</h2>
+<p>In homotopy theory, we like to consider topological spaces “up to homotopy equivalence”. In calculations, we want to be able to replace a space with a homotopy equivalent space. Unfortunately the usual category-theoretic notions of limit and colimit don’t behave nicely with respect to homotopy equivalence. For example, the pullback of the diagram given by the inclusions of the endpoints in the unit interval</p>
+<p><span class="math display">\[\{0\} \hookrightarrow [0, 1] \hookleftarrow \{1\}\]</span></p>
+<p>is the empty topological space. The pullback of the diagram given by two inclusions of a point into a point</p>
+<p><span class="math display">\[\ast \hookrightarrow \ast \hookleftarrow \ast\]</span></p>
+<p>is a point. But the interval is homotopy equivalent to the point – in fact we have a commutative diagram</p>
+<p><img src="../images/pullback-homotopy-inv-fail.svg" class="image-small center" alt="\begin{tikzcd} {0} \ar[r] \ar[d] &amp; {[0, 1]} \ar[d] &amp; {1} \ar[l] \ar[d]\ \ast \ar[r] &amp; \ast &amp; \ast \ar[l] \end{tikzcd}" /></p>
+<p>where all the vertical maps are homotopy equivalences. Since the empty space is not homotopy equivalent (nor even weakly homotopy equivalent) to a point, we see that the limits of two homotopy equivalent diagrams are not necessarily homotopy equivalent.</p>
+<!--more-->
+<p>Homotopy limits and colimits fix this problem, at the expense of no longer satisfying the universal property of a limit (they do in fact satisfy a weaker “homotopy universal property”, but this is quite subtle to state precisely). Given a diagram <span class="math display">\[B \xrightarrow{f} A \xleftarrow{g} C \text{,}\]</span> the pullback is the space <span class="math display">\[\{(b, c) \in B \times C \mid f(b) = g(c) \} \text{,}\]</span> topologised as a subspace of <span class="math inline">\(B \times C\)</span>. The homotopy pullback can be defined as the space <span class="math display">\[\{(b, c, \gamma) \in B \times C \times A^{[0, 1]} \mid f(b) = \gamma(0), g(c) = \gamma(1)\} \text{,}\]</span> topologised as a subspace of <span class="math inline">\(B \times C \times A^{[0, 1]}\)</span>, where <span class="math inline">\(A^{[0, 1]}\)</span> is the space of paths in <span class="math inline">\(A\)</span> with the compact-open topology. That is, a point in the homotopy pullback corresponds to a point <span class="math inline">\(b \in B\)</span>, a point <span class="math inline">\(c \in C\)</span>, and a path in <span class="math inline">\(A\)</span> from <span class="math inline">\(f(b)\)</span> to <span class="math inline">\(g(c)\)</span>. The rough idea is that the equality constraint <span class="math inline">\(f(b) = g(c)\)</span> in the definition of pullback is badly behaved with respect to homotopy equivalence, so in the homotopy pullback we replace this with the data of a path from <span class="math inline">\(f(b)\)</span> to <span class="math inline">\(g(c)\)</span>.</p>
+<p>In our examples above, we can compute that the homotopy pullback of <span class="math inline">\(\ast \hookrightarrow \ast \hookleftarrow \ast\)</span> is still a single point, while the homotopy pullback of <span class="math inline">\(\{0\} \hookrightarrow [0, 1] \hookleftarrow \{1\}\)</span> is the space of paths from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span> in <span class="math inline">\([0, 1]\)</span>, which is homotopic to a point.</p>
+<h2 id="key-properties">Key properties</h2>
+<p>The general construction of homotopy limits and colimits is a bit complicated, so it helps to start with some important properties. The following list comes from Pascal Lambrecht’s <a href="https://web.archive.org/web/20211021115751/https://mysite.science.uottawa.ca/pjacqmin/PrimerHolimHocolim-19sept2013.pdf">A Gentle Introduction on Homotopy Limits and Colimits</a>.</p>
+<p>Given a diagram category <span class="math inline">\(I\)</span>, a homotopy limit functor <span class="math inline">\(\text{holim} : \text{Top}^I \to \text{Top}\)</span> should satisfy:</p>
+<ol type="1">
+<li>Homotopy limits are invariant with respect to weak homotopy equivalence. That is, if we have two diagrams <span class="math inline">\(\mathbb{D}_1 : I \to \text{Top}\)</span> and <span class="math inline">\(\mathbb{D}_2 : I \to \text{Top}\)</span>, and a natural transformation <span class="math inline">\(\alpha : \mathbb{D}_1 \to \mathbb{D}_2\)</span> such that <span class="math inline">\(\alpha(i)\)</span> is a weak homotopy equivalence for every object <span class="math inline">\(i \in I\)</span>, then <span class="math inline">\(\text{holim}\, \alpha : \text{holim}\, \mathbb{D}_1 \to \text{holim}\, \mathbb{D}_2\)</span> is also a weak homotopy equivalence.</li>
+<li>We have a natural transformation <span class="math inline">\(\eta : \text{lim}\, \to \text{holim}\,\)</span>. That is, for each diagram <span class="math inline">\(\mathbb{D} : I \to \text{Top}\)</span> there is a continuous map <span class="math inline">\(\eta_{\mathbb{D}} : \text{lim}\, \mathbb{D} \to \text{holim}\, \mathbb{D}\)</span>, and these maps are natural in <span class="math inline">\(\mathbb{D}\)</span>.</li>
+<li>There is a class <span class="math inline">\(\mathcal{F}\)</span> of diagrams, called the <em>fibrant diagrams</em>, with the following two properties. If <span class="math inline">\(\mathbb{F} \in \mathcal{F}\)</span> is a fibrant diagram then <span class="math inline">\(\eta_{\mathbb{F}} : \text{lim}\, \mathbb{F} \to \text{holim}\, \mathbb{F}\)</span> is a weak homotopy equivalence. And <span class="math inline">\(\mathcal{F}\)</span> is large in the sense that given any diagram <span class="math inline">\(\mathbb{D}\)</span>, there is a fibrant diagram <span class="math inline">\(\mathbb{F}\)</span> and a natural transformation <span class="math inline">\(\alpha : \mathbb{D} \to \mathbb{F}\)</span> such that <span class="math inline">\(\alpha(i)\)</span> is a weak homotopy equivalence for all <span class="math inline">\(i \in I\)</span> (we say that <span class="math inline">\(\mathbb{F}\)</span> is a fibrant replacement for <span class="math inline">\(\mathbb{D}\)</span>).</li>
+</ol>
+<p>There is a dual set of properties for a homotopy colimit functor <span class="math inline">\(\text{hocolim} : \text{Top}^I \to \text{Top}\)</span>.</p>
+<h2 id="confusions-and-subtleties">Confusions and subtleties</h2>
+<p>So far we’ve seen some useful properties, but to really use homotopy limits we’ll need to have an actual definition. However when you go further into the specifics there are some subtleties to watch out for, and a lot of different possible approaches. My aim is to outline these so that you might be better prepared than I was.</p>
+<h3 id="different-concrete-constructions">Different concrete constructions</h3>
+<p>There are several widely used constructions of homotopy limits, and different choices will work best in different circumstances. Some of these constructions only agree up to homotopy equivalence (rather than homeomorphism), so they aren’t completely interchangeable – it really is important to keep track of which you’re using. The constructions I understand the best are the Bousfield-Kan formula and simplicial replacement, but there are also several different approaches using model categories.</p>
+<h3 id="ambient-category">Ambient category</h3>
+<p>Homotopy theorists often work in a “convenient category of topological spaces” – a subcategory of the category of all topological spaces, which has better categorical properties. A common choice is the category of compactly generated weak Hausdorff spaces (there’s a nice overview in this <a href="https://neil-strickland.staff.shef.ac.uk/courses/homotopy/cgwh.pdf">paper by Neil Strickland</a>), but unfortunately people often use slight variations. In practice I don’t think these differences tend to matter for the theory of homotopy limits, but as someone who likes to keep track of technical details I’m not quite sure how best to deal with this situation. In principal you might need to do a lot of double checking if you want to use a result in a slightly different category.</p>
+<p>Another possibility is to work in a much more general setting, such as a simplicial model category. Again most of the theory is the same in this setting, but there are a few differences: some results can be slightly strengthened or simplified when you restrict to topological spaces. In particular there are some cases where in the general setting you need to work with (co)fibrant replacements, but this is unnecessary for topological spaces.</p>
+<h3 id="homotopy-equivalence-vs-weak-homotopy-equivalence">Homotopy equivalence vs weak homotopy equivalence</h3>
+<p>Many people work exclusively with weak homotopy equivalences, and this fits best with more general settings. However many theorems do turn out to be true when you replace “weak homotopy equivalence” with “homotopy equivalence” in the statement, and you’ll sometimes see these variants.</p>
+<h2 id="resources">Resources</h2>
+<p>In the future I might explain more about homotopy limits and colimits here on my blog, but for the time being here are some links to resources that I found useful:</p>
+<h3 id="a-gentle-introduction-on-homotopy-limits-and-colimits-pascal-lambrecht"><a href="https://mysite.science.uottawa.ca/pjacqmin/PrimerHolimHocolim-19sept2013.pdf">A Gentle Introduction on Homotopy Limits and Colimits (Pascal Lambrecht)</a></h3>
+<p>This is a great first introduction. He starts with motivation and key properties, in more detail than I’ve described here, then explains the Bousfield-Kan construction. This requires understanding some more advanced theory (the nerve of a category), so he also describes the Dror-Farjoun approach, which is more accessible. The last section gives explicit descriptions for homotopy limits and colimits of common shapes (pullbacks, pushouts, towers, cubes, …), which is very useful.</p>
+<h3 id="a-primer-on-homotopy-colimits-daniel-dugger"><a href="https://pages.uoregon.edu/ddugger/hocolim.pdf">A Primer on Homotopy Colimits (Daniel Dugger)</a></h3>
+<p>Another good introduction, and the motivation and intuition from the first couple sections are excellent. He takes the simplicial replacement approach, and the arguments are somewhat more technical. He gives more proofs, and the later chapters go into some more advanced topics. If you enjoy abstraction then I highly recommend the later chapters on the two-sided bar construction.</p>
+<h3 id="homotopy-limits-completions-and-localizations-a.-k.-bousfield-d.-m.-kan">Homotopy limits, completions and localizations (A. K. Bousfield, D. M. Kan)</h3>
+<p>This is (as far as I know) the first description of homotopy limits in the literature. Unsurprisingly it describes the Bousfield-Kan approach!</p>
+<p>The book discusses homotopy limits in Part II, which does not depend in any way on Part I. Despite its age it is still a good resource, although less beginner-friendly than the above sources.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I personally have much more to learn about homotopy limits and colimits, in particular the more abstract model-category approach, and I hope to write more about this later. In the mean time I’d welcome any suggestions, comments or corrections.</p>
+    </div>
+    <section class="comments">
+        <button id="show-comments-button" onclick="showComments()">Load comments</button>
+        <div id="graphcomment"></div>
+        <script type="text/javascript">
+         const MIN_SHOW_LOADING_MILLIS = 300;
+
+         commentsButton = document.getElementById('show-comments-button');
+
+         
+         if (!doNotTrack && gtag) {
+             function scrollBottomCallback(entries, observer) {
+                 if (entries[0].intersectionRatio <= 0) return;
+
+                 gtag('event', 'scroll_bottom', {
+                     'event_category': 'engagement'
+                 });
+
+                 observer.unobserve(commentsButton);
+             }
+
+             const observer = new IntersectionObserver(scrollBottomCallback, { threshold: '0.0' });
+             observer.observe(commentsButton);
+         }
+         
+
+         var loadTime;
+
+         function setLoadingText() {
+             commentsButton.innerHTML = "Loading...";
+         }
+
+         function failedLoadingText() {
+             const currentTime = new Date().getTime()
+             const elapsedTime = currentTime - loadTime;
+             if (elapsedTime < MIN_SHOW_LOADING_MILLIS) {
+                 setTimeout(function() {
+                     commentsButton.innerHTML = "Failed - try again?";
+                 }, MIN_SHOW_LOADING_MILLIS - elapsedTime);
+             } else {
+                 commentsButton.innerHTML = "Failed - try again?";
+             }
+         }
+
+         function hideCommentsButton() {
+             commentsButton.parentNode.removeChild(commentsButton);
+         }
+
+         function showComments() {
+             loadTime = new Date().getTime();
+             setLoadingText()
+
+             
+             if (!doNotTrack && gtag) {
+                 gtag('event', 'show_comments', {
+                     'event_category': 'engagement'
+                 });
+             }
+             
+
+             window.gc_params = {
+                 graphcomment_id: 'blog-thjread',
+
+                 // if your website has a fixed header, indicate it's height in pixels
+                 fixed_header_height: 0,
+             };
+
+             (function() {
+                 var gc = document.createElement('script'); gc.type = 'text/javascript'; gc.async = true;
+                 gc.src = 'https://graphcomment.com/js/integration.js?' + Math.round(Math.random() * 1e8);
+                 gc.onload = hideCommentsButton;
+                 gc.onerror = failedLoadingText;
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(gc);
+             })();
+         }
+        </script>
+    </section>
+</article>
+
+            </div>
+        </main>
+
+        <footer id="about">
+            <section class="footer-box">
+                <h2>About me</h2>
+<p>I'm currently a mathematics PhD student at the University of Warwick. At the moment I'm transitioning into working on AI safety: understanding and managing the risks of advanced artificial intelligence.</p>
+
+            </section>
+            <section class="footer-box">
+                <h2>Contact</h2>
+<ul class="fa-ul">
+    <li>
+        <a href="mailto:thjread@gmail.com" aria-label="Email"><i class="fa-li fas fa-envelope"></i></a>
+        Email me at <a href="mailto:thjread@gmail.com" class="email">thjread@gmail.com</a>
+    </li>
+    <li>
+        <a href="https://twitter.com/thjread" aria-label="Twitter"><i class="fa-li fab fa-twitter"></i></a>
+        Follow me on Twitter at <a href="https://twitter.com/thjread">@thjread</a>
+    </li>
+    <li>
+        <a href="https://github.com/thjread/" aria-label="GitHub"><i class="fa-li fab fa-github"></i></a>
+        See my programming projects on <a href="https://github.com/thjread/">GitHub</a>
+    </li>
+    <li>
+        <a href="../rss.xml" aria-label="RSS feed"><i class="fa-li fas fa-rss"></i></a>
+        Subscribe to new posts with the <a href="../rss.xml">RSS feed</a>
+    </li>
+</ul>
+
+            </section>
+            <section class="footer-box">
+                <h2>This site</h2>
+<p>Content provided under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons CC BY 4.0</a> license. <a href="https://github.com/thjread/thjread-blog">Source code</a> for the site provided under the <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+<p>This site is generated by <a href="https://jaspervdj.be/hakyll/">Hakyll</a>, and hosted on <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+
+            </section>
+        </footer>
+    </body>
+</html>

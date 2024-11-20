@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Thomas Read's blog</title>
+        <link>https://blog.thjread.com</link>
+        <description><![CDATA[My personal blog - mostly maths and programming]]></description>
+        <atom:link href="https://blog.thjread.com/rss.xml" rel="self"
+                   type="application/rss+xml" />
+        <lastBuildDate>Mon, 03 Oct 2022 00:00:00 UT</lastBuildDate>
+        <item>
+    <title>Omega-spectra and sequential spectra</title>
+    <link>https://blog.thjread.com/posts/2022-10-03-why-sequential-spectra.html</link>
+    <description><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Stable homotopy theory is a branch of algebraic topology where the central objects of study are not topological spaces, but something called spectra. Spectra are often more complicated to deal with than spaces, but they are very well suited to applying the techniques of homotopy theory.</p>
+<p>Stable homotopy theory can be tricky to motivate, in part because there are lots of different sources of motivation, each requiring different background knowledge to appreciate. No single one of these is a slam-dunk reason to study spectra, but the combination of all of them makes it clear that it’s a very natural piece of mathematics. In the first half of this post I’ll give a justification for considering (Omega-)spectra that doesn’t rely on many prerequisites, but you’ll have to believe me that there are other reasons to consider them to be the right thing to look at.<a href="https://blog.thjread.com#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>In the second part of the post I’ll describe how we use the theory of model categories to understand spectra. In particular this explains why we need to think about sequential spectra as well as Omega-spectra.</p>
+<p>Most of these perspectives came from Urs Schreiber’s <a href="https://ncatlab.org/nlab/show/Introduction+to+Stable+Homotopy+Theory">Introduction to Stable Homotopy Theory</a> notes on the nLab (in particular the section on <a href="https://ncatlab.org/nlab/show/Introduction+to+Stable+homotopy+theory+--+1-1">Sequential Spectra</a>), and I highly recommend taking a look at these if you want to learn the technical details or read further in the subject.</p>
+<h2 id="omega-spectra">Omega-spectra</h2>
+<p>I want to show how Omega-spectra can arise naturally, by considering how you might try to define something a bit like a space but with both positive and negative homotopy groups. The <span class="math inline">\(n\)</span>th homotopy group of a pointed space<a href="https://blog.thjread.com#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> is the set of homotopy classes of based maps from an <span class="math inline">\(n\)</span>-dimensional sphere to the space. This definition only makes sense when <span class="math inline">\(n \ge 0\)</span>, but we can think of Omega-spectra as an attempt to define an object where negative homotopy groups do make sense. I’m being deliberately vague when I say that they are “a bit like” spaces – spaces aren’t Omega-spectra and Omega-spectra aren’t spaces, but they do behave similarly in some respects.</p>
+<p>Let <span class="math inline">\(Y\)</span> a pointed topological space. An important construction in homotopy theory is the loop space <span class="math inline">\(\Omega Y\)</span>. This is the space of paths in <span class="math inline">\(Y\)</span> that start and end at the basepoint. Points of <span class="math inline">\(\Omega Y\)</span> correspond to based loops in <span class="math inline">\(Y\)</span>, and paths in <span class="math inline">\(\Omega Y\)</span> correspond to homotopies between based loops in <span class="math inline">\(Y\)</span>. So path components of <span class="math inline">\(\Omega Y\)</span> are in bijection with the first homotopy group of <span class="math inline">\(Y\)</span>: <span class="math display">\[\pi_0(\Omega Y) \cong \pi_1(Y)\text{.}\]</span> The same idea works for higher homotopy groups, and we have <span class="math display">\[\pi_k(\Omega Y) \cong \pi_{k+1}(Y) \text{.}\]</span> That is, the homotopy groups of <span class="math inline">\(\Omega Y\)</span> are obtained from those of <span class="math inline">\(Y\)</span> by throwing away the zeroth one and shifting the rest down a dimension. Now let’s take this idea but do it the other way round. Let <span class="math inline">\(Y\)</span> be a pointed space, and suppose you have a pointed space <span class="math inline">\(Z\)</span> and a weak homotopy equivalence <span class="math inline">\(f : Y \to \Omega Z\)</span> (a weak homotopy equivalence is a map that induces isomorphism on all homotopy groups). Then <span class="math inline">\(Z\)</span> has the same homotopy groups as <span class="math inline">\(Y\)</span> but shifted one dimension up, together with a new homotopy group <span class="math inline">\(\pi_0 Z\)</span> living one dimension below <span class="math inline">\(\pi_1 Z \cong \pi_0 Y\)</span>. In some sense we can think of this data <span class="math inline">\((Y, Z, f)\)</span> as specifying a space <span class="math inline">\(Y\)</span> with the addition of a dimension <span class="math inline">\(-1\)</span> homotopy group <span class="math inline">\(\pi_0 Z\)</span>.</p>
+<p>Repeating this construction, we get the definition of an Omega-spectrum.</p>
+<div class="definition">
+<p><strong>Definition</strong> (Omega-spectrum)</p>
+<p>An Omega-spectrum <span class="math inline">\(X\)</span> consists of a sequence <span class="math inline">\((X_n)_{n \ge 0}\)</span> of pointed topological spaces, together with weak homotopy equivalences <span class="math display">\[f_n : X_n \to \Omega X_{n+1}\]</span> for all <span class="math inline">\(n\)</span>.</p>
+</div>
+<p>Note that <span class="math display">\[\pi_k (X_n) \cong \pi_k(\Omega X_{n+1}) \cong \pi_{k+1}(X_{n+1}) \text{.}\]</span> Fix an integer <span class="math inline">\(k \in \mathbb{Z}\)</span>. The group <span class="math inline">\(\pi_{n+k}(X_n)\)</span> exists for <span class="math inline">\(n\)</span> sufficiently large that <span class="math inline">\(n+k \ge 0\)</span>, and these groups are isomorphic for different <span class="math inline">\(n\)</span>. We call this the <span class="math inline">\(k\)</span>th stable homotopy group of <span class="math inline">\(X\)</span>, denoted <span class="math inline">\(\pi_k(X)\)</span>. When <span class="math inline">\(k \ge 0\)</span> these agree with the usual homotopy groups of <span class="math inline">\(X_0\)</span>, but we also have homotopy groups in negative dimensions!</p>
+<p><img src="https://blog.thjread.com/images/omega-spectrum-homotopy-groups.png" class="image-large center" alt="Diagram of the homotopy groups of the spaces comprising an Omega-spectrum, and the isomorphisms between them" /></p>
+<h2 id="sequential-spectra-and-the-stable-model-structure">Sequential spectra and the stable model structure</h2>
+<p>The next step is to try to do homotopy theory, replacing spaces with Omega-spectra.</p>
+
+
+<a href="https://blog.thjread.com/posts/2022-10-03-why-sequential-spectra.html">Read more »</a>
+]]></description>
+    <pubDate>Mon, 03 Oct 2022 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2022-10-03-why-sequential-spectra.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+<item>
+    <title>Iodine in kombu: a deep dive</title>
+    <link>https://blog.thjread.com/posts/2022-04-25-kombu-iodine.html</link>
+    <description><![CDATA[<p><img src="https://blog.thjread.com/images/kombu_packet.jpg" class="image-medium image-pad-vertical center" alt="A pack of Wel-Pac brand dried kombu for dashi" /></p>
+<p>I’ve recently been exploring Japanese cuisine, and in doing so I found out about a type of seaweed called kombu. When I use a new ingredient I like to look up its nutritional properties, and I learnt that kombu contains extremely high levels of iodine. This post start with an introduction to kombu, and a discussion of whether too much iodine is something to worry about or not. I then describe my efforts to measure iodine at home, in order to find a way to cook with kombu without consuming so much iodine, should you wish to do so.</p>
+<h2 id="what-is-kombu">What is kombu?</h2>
+<p>Kombu is a kind of kelp seaweed, found in oceans all over the world. It grows quickly and in reasonably shallow water, so is easy to harvest in large quantities. In Japanese cooking, dried kombu is soaked in water to produce a flavourful liquid called kombu dashi. This provides the base for miso soup as well as many other broths, stews and sauces.</p>
+<figure>
+<img src="https://blog.thjread.com/images/kombu_soak.jpg" class="image-large image-pad-vertical center" alt="Dry and reconstituted kombu on a plate" alt /><figcaption>Left: a piece of dried kombu. Right: an equal sized piece after rehydrating.</figcaption>
+</figure>
+<p>In 1908, Japanese biochemist Kikunae Ikeda discovered that the distinctive umami taste of kombu comes from glutamic acid, and figured out how to manufacture this commercially in the form of monosodium glutamate (MSG). These days many Japanese cooks buy dashi powder rather than making it at home; most powders have added MSG, and some don’t even contain any kombu.</p>
+<p>In the west, kombu is becoming increasingly popular in vegan and vegetarian cooking. It’s often added to herbal supplements and vegan milk substitutes as a rich natural source of iodine.</p>
+
+
+<a href="https://blog.thjread.com/posts/2022-04-25-kombu-iodine.html">Read more »</a>
+]]></description>
+    <pubDate>Mon, 25 Apr 2022 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2022-04-25-kombu-iodine.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+<item>
+    <title>How to learn about homotopy limits and colimits</title>
+    <link>https://blog.thjread.com/posts/2021-09-01-learn-homotopy-colimits.html</link>
+    <description><![CDATA[<p>Earlier this year I wanted to quickly learn the basics of homotopy limits, and found it surprisingly hard to even find a clear definition. Resources vary a lot in the level of generality, the amount of prerequisite knowledge required and the exact technical details, and it took a long time to find the right fit for me at a point when I didn’t know what I was looking for. In this post I’ll give a brief explanation of what homotopy limits are, and point to the further resources that I found most helpful.</p>
+<p><img src="https://blog.thjread.com/images/homotopy-colimit.png" class="image-very-large center" alt="Drawing of a mapping telescope" /></p>
+<h2 id="whats-the-point-of-homotopy-limits">What’s the point of homotopy limits?</h2>
+<p>In homotopy theory, we like to consider topological spaces “up to homotopy equivalence”. In calculations, we want to be able to replace a space with a homotopy equivalent space. Unfortunately the usual category-theoretic notions of limit and colimit don’t behave nicely with respect to homotopy equivalence. For example, the pullback of the diagram given by the inclusions of the endpoints in the unit interval</p>
+<p><span class="math display">\[\{0\} \hookrightarrow [0, 1] \hookleftarrow \{1\}\]</span></p>
+<p>is the empty topological space. The pullback of the diagram given by two inclusions of a point into a point</p>
+<p><span class="math display">\[\ast \hookrightarrow \ast \hookleftarrow \ast\]</span></p>
+<p>is a point. But the interval is homotopy equivalent to the point – in fact we have a commutative diagram</p>
+<p><img src="https://blog.thjread.com/images/pullback-homotopy-inv-fail.svg" class="image-small center" alt="\begin{tikzcd} {0} \ar[r] \ar[d] &amp; {[0, 1]} \ar[d] &amp; {1} \ar[l] \ar[d]\ \ast \ar[r] &amp; \ast &amp; \ast \ar[l] \end{tikzcd}" /></p>
+<p>where all the vertical maps are homotopy equivalences. Since the empty space is not homotopy equivalent (nor even weakly homotopy equivalent) to a point, we see that the limits of two homotopy equivalent diagrams are not necessarily homotopy equivalent.</p>
+
+
+<a href="https://blog.thjread.com/posts/2021-09-01-learn-homotopy-colimits.html">Read more »</a>
+]]></description>
+    <pubDate>Wed, 01 Sep 2021 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2021-09-01-learn-homotopy-colimits.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+<item>
+    <title>Ways of thinking for mathematical research</title>
+    <link>https://blog.thjread.com/posts/2021-01-01-ways-of-thinking-research.html</link>
+    <description><![CDATA[<p><img src="https://blog.thjread.com/images/research-rough.jpg" class="image-large center image-pad-vertical" alt="Rough working including several TODOs" /></p>
+<p>Last summer I did an eight week mathematics research project, as mentioned in my previous post. This was my first real taste of mathematical research, and so I tried to write up some of my thoughts on lessons learned while they were still fresh in my mind. I just recently got around to editing this into a publishable form.</p>
+<p>I’m sure very little of this is new to those of you who have experience in research – but I find it hard to remember what was difficult once I’m very used to something, so I hope there’s value in me writing this.</p>
+
+
+<a href="https://blog.thjread.com/posts/2021-01-01-ways-of-thinking-research.html">Read more »</a>
+]]></description>
+    <pubDate>Fri, 01 Jan 2021 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2021-01-01-ways-of-thinking-research.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+<item>
+    <title>Slides on algebraic theories</title>
+    <link>https://blog.thjread.com/posts/2020-10-14-algebraic-theories-talk.html</link>
+    <description><![CDATA[<p><img src="https://blog.thjread.com/images/comm-monoid-operad.jpg" class="image-large center" alt="Composition in the commutative monoid operad" /></p>
+<p>I spent a couple months this summer doing a very enjoyable research project supervised by Martin Hyland, looking at several topics to do with algebraic theories. It was a great opportunity to get some idea of what research can be like, and to learn from someone with much more experience.</p>
+<p>I recently gave a short talk about the project, and I’ve uploaded the <a href="https://blog.thjread.com/pdfs/algebraictheories.pdf">slides</a>. The talk was aimed at mathematics students who don’t know any category theory, so rather than taking a category-heavy point of view, I instead spent the first half explaining equational theories in some detail, while in the second half I tried to give a more intuitive description of the problems that I was actually working on.</p>
+
+
+<a href="https://blog.thjread.com/posts/2020-10-14-algebraic-theories-talk.html">Read more »</a>
+]]></description>
+    <pubDate>Wed, 14 Oct 2020 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2020-10-14-algebraic-theories-talk.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+<item>
+    <title>What is a quasi-category?</title>
+    <link>https://blog.thjread.com/posts/2020-08-04-quasi-categories.html</link>
+    <description><![CDATA[<p>A category describes a collection of objects with composable morphisms between them. In a 2-category you also have 2-morphisms between morphisms with matching domain and codomain. For example there is a 2-category <span class="math inline">\(\text{Cat}\)</span> with objects given by (small) categories, 1-morphisms given by functors between categories, and 2-morphisms given by natural transformations between functors. Continuing this pattern gives the idea of an <span class="math inline">\(n\)</span>-category, where you have objects, 1-morphisms, 2-morphisms, and so on up to <span class="math inline">\(n\)</span>-morphisms. The ultimate such structure is an <span class="math inline">\(\infty\)</span>-category, with a never ending sequence of morphisms between morphisms between … between morphisms.</p>
+<p>In a <em>weak</em> <span class="math inline">\(n\)</span>- or <span class="math inline">\(\infty\)</span>-category, associativity and identity laws only hold up to (coherent) isomorphism. In fact we don’t even need to require composition of morphisms to be uniquely defined! We only ask that all possible composites are uniquely isomorphic (where uniquely is interpreted in an appropriate higher categorical sense).</p>
+<p>Weak higher categories are generally hard to understand, or even define correctly, and are currently an area of active research. However an especially well-behaved special case is that of a weak <span class="math inline">\((\infty, 1)\)</span>-category, where all <span class="math inline">\(k\)</span>-morphisms for <span class="math inline">\(k &gt; 1\)</span> are equivalences. Quasi-categories are one of the earliest and most important ways to formalise the idea of a weak <span class="math inline">\((\infty, 1)\)</span>-category. The definition of a quasi-category turns out to be less horrendously complicated than you might expect! The key is to understand simplicial sets, which are a kind of combinatorial approach to shape. Then a quasi-category is a simplicial set satisfying a condition that asks for certain “compositions of morphisms” to exist. We’ll start with a quick overview of simplicial sets, emphasising geometric intuition, before explaining the precise definition of a quasi-category.</p>
+<h2 id="simplicial-sets">Simplicial sets</h2>
+<p>The idea of a simplicial set is to describe a shape by building it up out of <em>simplices</em> – points, lines, triangles, and so on. Moreover each simplex should come with an ordering on its vertices, so for example edges have a direction and triangles have an orientation.</p>
+<p><img src="https://blog.thjread.com/images/simplicial-set-example.jpg" class="image-large center" alt="Example of a simplicial set" /></p>
+
+
+<a href="https://blog.thjread.com/posts/2020-08-04-quasi-categories.html">Read more »</a>
+]]></description>
+    <pubDate>Tue, 04 Aug 2020 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2020-08-04-quasi-categories.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+<item>
+    <title>Creative perspective</title>
+    <link>https://blog.thjread.com/posts/2020-07-01-creative-perspective.html</link>
+    <description><![CDATA[<p>I’ve just started reading Ernest W. Watson’s <a href="https://www.amazon.com/Creative-Perspective-Artists-Illustrators-Instruction/dp/0486273377">Creative Perspective for Artists and Illustrators</a>. I found that it cleared up several confusions I had about how perspective works, why correct perspective can seem distorted, and when and in what ways you might want to bend the rules.</p>
+<p>I’ll follow Watson’s convention and refer to <em>scientific perspective</em> when I want to emphasise the idea of sticking precisely to the standard rules.</p>
+<h2 id="what-is-perspective">What is perspective?</h2>
+<p>Stand in front of a window, and (keeping your head still and closing one eye) use a marker to trace what you see on the window. Then the resulting 2-dimensional picture will be in scientific perspective. The resulting image will match the image captured by an idealised camera.</p>
+<p><img src="https://blog.thjread.com/images/perspective-window.jpg" class="image-very-large center" alt="Stick figure looking through a window at a tree" /></p>
+
+
+<a href="https://blog.thjread.com/posts/2020-07-01-creative-perspective.html">Read more »</a>
+]]></description>
+    <pubDate>Wed, 01 Jul 2020 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2020-07-01-creative-perspective.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+<item>
+    <title>Three proofs that limits commute with limits</title>
+    <link>https://blog.thjread.com/posts/2020-04-15-limits-commute.html</link>
+    <description><![CDATA[<p><img src="https://blog.thjread.com/images/lim_comm_lim.png" class="image-very-large center" alt /></p>
+<p>A very useful fact in category theory is that limits commute with limits (and dually colimits commute with colimits). That is, given a functor <span class="math inline">\(F : I \times J \to C\)</span> we have <span class="math display">\[\lim_i \lim_j F(i, j) \cong \lim_j \lim_i F(i, j)\]</span> under appropriate conditions.</p>
+<p>In this post I will explain the precise statement of this theorem, and describe three proofs. The first proof directly uses universal properties. The second is a standard argument using the Yoneda embedding to reduce to the case of <span class="math inline">\(\text{Set}\)</span>, which we will see is really the same proof in disguise. The third proof is an elegant argument using uniqueness of adjoints.</p>
+
+
+<a href="https://blog.thjread.com/posts/2020-04-15-limits-commute.html">Read more »</a>
+]]></description>
+    <pubDate>Wed, 15 Apr 2020 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2020-04-15-limits-commute.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+<item>
+    <title>Getting started with category theory</title>
+    <link>https://blog.thjread.com/posts/2020-03-09-getting-started-category-theory.html</link>
+    <description><![CDATA[<p>So you want to learn category theory - where should you start? I’ve spent the past six months trying to get a background in the essentials, and so it’s a good time to write up a reading list to point others along the same path. This is more of a record of my journey than an exhaustive guide, although I’ll try to mention all the popular resources I know of.</p>
+<h2 id="introductory-resources">Introductory resources</h2>
+<h3 id="physics-topology-logic-and-computation-a-rosetta-stone-john-baez-and-michael-stay">Physics, Topology, Logic and Computation: A Rosetta Stone — John Baez and Michael Stay</h3>
+<p>If you’re like me, you’ll want to get excited about the subject before wading through a couple hundred pages of textbook. This paper is perfect for that — it describes how category theory draws beautiful analogies between different areas of physics, maths and computer science, all assuming no prerequisites.</p>
+<p>The <a href="http://math.ucr.edu/home/baez/rosetta/rose3.pdf">paper is available from John Baez’s website</a>.</p>
+<h3 id="category-theory-for-programmers-bartosz-milewski">Category Theory for Programmers — Bartosz Milewski</h3>
+<p>The first part of this is one of the best gentle introductions to category theory that I know of. He tries to avoid too much mathematical notation and technical detail, and instead gives intuition with cute drawings and keeps things grounded with snippets of Haskell code. If you have a formal training in mathematics you might prefer the next item on the list; on the other hand if you want to learn category theory in order to understand Haskell then this might be the only thing you need to read.</p>
+<p>The <a href="https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/">posts are online here</a> — that page also links to a pdf version, a hardcover book and a series of YouTube videos.</p>
+<h3 id="category-theory-in-context-emily-riehl">Category Theory in Context — Emily Riehl</h3>
+<p>This was my choice of introductory category theory textbook. It’s accessible to a later year maths undergrad without needing to know an excessive amount of abstract algebra or other prerequisites, and the writing is clear and of a consistently high quality. The content is evidently very well thought through: every time I skipped something I would find that it became important later, and need to go back and learn it properly! It’s a fairly dense book but not needlessly so — all the key intuition and examples are there.</p>
+<p>You can <a href="http://www.math.jhu.edu/~eriehl/context.pdf">read the book for free online</a>, and the paperback version is inexpensive.</p>
+
+
+<a href="https://blog.thjread.com/posts/2020-03-09-getting-started-category-theory.html">Read more »</a>
+]]></description>
+    <pubDate>Mon, 09 Mar 2020 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2020-03-09-getting-started-category-theory.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+<item>
+    <title>The algebraic approach to tangent spaces of varieties</title>
+    <link>https://blog.thjread.com/posts/2020-03-05-algebraic-tangent-spaces.html</link>
+    <description><![CDATA[<p>We define the (Zariski) tangent space of an irreducible affine variety in a very geometric way — it is the zero set of linearised versions of the polynomials that define the variety. We want to connect this to the algebraic structures that we’ve been building up, like coordinate rings and function fields. In fact it turns out that there is a very nice way to view the tangent space at a point in terms of the local ring at at that point.</p>
+<p>For some reason in the Cambridge Part II course we only prove this for curves — I think the general case is much more enlightening. This proof is based on Hulek’s Elementary Algebraic Geometry (Theorem 3.14), although somewhat expanded.</p>
+
+
+<a href="https://blog.thjread.com/posts/2020-03-05-algebraic-tangent-spaces.html">Read more »</a>
+]]></description>
+    <pubDate>Thu, 05 Mar 2020 00:00:00 UT</pubDate>
+    <guid>https://blog.thjread.com/posts/2020-03-05-algebraic-tangent-spaces.html</guid>
+    <dc:creator>Thomas Read</dc:creator>
+</item>
+
+    </channel>
+</rss>
